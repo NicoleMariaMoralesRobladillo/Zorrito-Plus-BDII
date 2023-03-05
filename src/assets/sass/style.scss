@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;700&display=swap");
+html {
+  font-size: 85%;
+}
+* {
+  font-family: "Poppins", sans-serif;
+}
+$form-select-focus-width: 0;
+$navbar-toggler-border-radius: 0;
+$navbar-toggler-focus-width: 0;
+$navbar-toggler-transition: none;
+$form-select-focus-border-color: white;
+$form-select-indicator: url("../images/flecha-desplegable.svg");
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 90%;
+  }
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: 100%;
+  }
+}
