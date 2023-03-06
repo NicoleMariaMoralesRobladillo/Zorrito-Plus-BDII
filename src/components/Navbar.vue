@@ -100,6 +100,17 @@ export default defineComponent({
                       />Solicitar perfil</router-link
                     >
                   </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <router-link
+                      to="/missolicitudesusuario"
+                      class="dropdown-item fs-5 text-white text-break"
+                      ><font-awesome-icon
+                        icon="fa-solid fa-list"
+                        class="pe-2"
+                      />Mis solicitudes</router-link
+                    >
+                  </li>
                 </ul>
               </li>
               <li

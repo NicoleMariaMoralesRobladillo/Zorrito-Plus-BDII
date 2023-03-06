@@ -1,39 +1,36 @@
 <script>
 import { defineComponent } from "vue";
 export default defineComponent({
-  name: "ingresarquejausuario",
-  data: () => {
+  name: "editarquejausuario",
+  data() {
     return {
-      queja: {
-        TipoQueja: "Cuenta",
-        ComentarioQueja: "",
-      },
+      queja: JSON.parse(this.$route.params.queja),
     };
   },
   methods: {
-    agregarQueja() {
-      //función agregar Queja
-      alert("Se ha enviado la queja con éxito.");
+    editarQueja() {
+      //función editar Queja
+      alert("Se ha editado la queja con éxito.");
       this.$refs.formularioQueja.reset();
     },
   },
 });
 </script>
 <template>
-  <div class="ingresarquejausuario px-4">
+  <div class="editarquejausuario px-4">
     <div class="my-5 p-0 mx-md-3 mx-lg-5">
       <div class="bg-dark p-5 panel-queja mx-auto">
-        <form ref="formularioQueja" @submit.prevent="agregarQueja">
+        <form ref="formularioQueja" @submit.prevent="editarQueja">
           <h1
             class="text-white fs-1 text-center pb-2 lh-base text-uppercase m-0"
           >
-            Ingresar queja
+            Editar queja
           </h1>
           <div class="row">
             <div
               class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base panel-queja__text my-auto"
             >
-              Nombres del solicitante:
+              Nombres del cliente:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
               a
@@ -43,7 +40,7 @@ export default defineComponent({
             <div
               class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base panel-queja__text my-auto"
             >
-              Apellidos del solicitante:
+              Apellidos del cliente:
             </div>
             <div
               class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
@@ -111,10 +108,10 @@ export default defineComponent({
               ></textarea>
             </div>
           </div>
-          <div class="row text-center justify-content-center flex-wrap">
+          <div class="d-flex text-center justify-content-center flex-wrap">
             <input
               type="submit"
-              value="Enviar"
+              value="Guardar"
               class="mt-4 formulario__button text-white fs-5 text-center lh-base border-0 px-4 py-3 rounded-4 text-break w-100 mx-3"
             />
             <input
@@ -122,6 +119,14 @@ export default defineComponent({
               value="Limpiar"
               class="mt-4 formulario__button text-white fs-5 text-center lh-base border-0 px-4 py-3 rounded-4 text-break w-100 mx-3"
             />
+            <router-link to="/misquejasusuario" class="d-content">
+              <button
+                type="button"
+                class="mt-4 formulario__button text-white fs-5 text-center lh-base border-0 px-4 py-3 rounded-4 text-break w-100 mx-3"
+              >
+                Atrás
+              </button>
+            </router-link>
           </div>
         </form>
       </div>

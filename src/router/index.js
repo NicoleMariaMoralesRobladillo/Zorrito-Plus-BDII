@@ -77,6 +77,48 @@ const routes = [
     },
   },
   {
+    path: "/missolicitudesusuario",
+    name: "missolicitudesusuario",
+    // route level code-splitting
+    // this generates a separate chunk (missolicitudesusuario.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "missolicitudesusuario" */ "../views/MisSolicitudesUsuario.vue"
+      ),
+    meta: {
+      title: "Mis solicitudes | Zorrito +",
+    },
+  },
+  {
+    path: "/missolicitudesusuario",
+    name: "missolicitudesusuario",
+    // route level code-splitting
+    // this generates a separate chunk (missolicitudesusuario.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "missolicitudesusuario" */ "../views/MisSolicitudesUsuario.vue"
+      ),
+    meta: {
+      title: "Mis solicitudes | Zorrito +",
+    },
+  },
+  {
+    path: "/editarsolicitudusuario/:solicitud",
+    name: "editarsolicitudusuario",
+    // route level code-splitting
+    // this generates a separate chunk (editarsolicitudusuario.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "editarsolicitudusuario" */ "../views/EditarSolicitudUsuario.vue"
+      ),
+    meta: {
+      title: "Editar solicitud | Zorrito +",
+    },
+  },
+  {
     path: "/misquejasusuario",
     name: "misquejasusuario",
     // route level code-splitting
@@ -102,6 +144,20 @@ const routes = [
       ),
     meta: {
       title: "Ingresar queja | Zorrito +",
+    },
+  },
+  {
+    path: "/editarquejausuario/:queja",
+    name: "editarquejausuario",
+    // route level code-splitting
+    // this generates a separate chunk (editarquejausuario.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "editarquejausuario" */ "../views/EditarQuejaUsuario.vue"
+      ),
+    meta: {
+      title: "Editar queja | Zorrito +",
     },
   },
   {

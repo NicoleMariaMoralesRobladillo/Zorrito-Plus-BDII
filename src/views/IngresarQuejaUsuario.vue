@@ -33,7 +33,7 @@ export default defineComponent({
             <div
               class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base panel-queja__text my-auto"
             >
-              Nombres del solicitante:
+              Nombres del cliente:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
               a
@@ -43,7 +43,7 @@ export default defineComponent({
             <div
               class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base panel-queja__text my-auto"
             >
-              Apellidos del solicitante:
+              Apellidos del cliente:
             </div>
             <div
               class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
