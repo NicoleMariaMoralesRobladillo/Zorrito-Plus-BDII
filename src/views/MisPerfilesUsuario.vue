@@ -1,6 +1,8 @@
 <script>
 import PerfilUsuario from "@/components/PerfilUsuario.vue";
 import { defineComponent } from "vue";
+import PlataformaService from "@/services/PlataformaService";
+
 export default defineComponent({
   name: "misperfilesusuario",
   data: () => {
@@ -17,16 +19,23 @@ export default defineComponent({
         },
       ],
       plataformaSeleccionada: "Todas",
+      plataformasList: []
     };
   },
   components: {
     PerfilUsuario,
   },
   methods: {
-    //filtrar perfiles por plataforma
+    async getPerfiles(){
+        const response = await PlataformaService.getPlataformas().then(response => {
+          console.log(response);
+        });
+
+        
+      },
   },
   mounted() {
-    //filtrar perfiles del usuario
+      this.getPerfiles();
   },
 });
 </script>
