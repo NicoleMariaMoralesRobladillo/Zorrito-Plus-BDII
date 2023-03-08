@@ -1,17 +1,13 @@
 <script>
 import SolicitudUsuario from "@/components/SolicitudUsuario.vue";
 import { defineComponent } from "vue";
+import axios from "axios";
 export default defineComponent({
   name: "missolicitudesusuario",
   data: () => {
     return {
       misSolicitudes: [
-        {
-          Plataforma: "Netflix",
-          FechaInicio: "a",
-          TiempoDuracion: 1,
-          CapturaPago: "a",
-        },
+        
       ],
     };
   },
@@ -19,10 +15,15 @@ export default defineComponent({
     SolicitudUsuario,
   },
   methods: {
-    //filtrar perfiles por plataforma
-  },
+    async getPerfiles(){
+       await axios.get('http://localhost:8080/solicitud/user').then(response => {
+          this.misSolicitudes = response.data;
+        });
+
+        
+      },  },
   mounted() {
-    //filtrar perfiles del usuario
+    this.getPerfiles();
   },
 });
 </script>

@@ -1,6 +1,8 @@
 <script>
 import { defineComponent } from "vue";
-import AuthService from "@/services/AuthService";
+import setAuthHeader from "@/services/setAuthHeader";
+import axios from "axios";
+
 export default defineComponent({
   name: "iniciarsesion",
   data: () => {
@@ -17,11 +19,12 @@ export default defineComponent({
         correo: this.usuarioIniciarSesion.Correo,
         contrasenia: this.usuarioIniciarSesion.Contrasenia
       };
-      const response = await AuthService.sendCredentials(params).then(response => {
+      await axios.post('http://localhost:8080/login',params).then(response => {
         console.log(response);
         let verificador = response.data;
         if (verificador.codigo === '200') {
-          localStorage.setItem('token', verificador.token);
+          localStorage.setItem('token',JSON.stringify(verificador.token) );
+          setAuthHeader(verificador.token)
           if (verificador.usuarioDTO.rol == "CLIENTE") {
             this.$router.push("/misperfilesusuario");
           } else if (verificador.usuarioDTO.rol == "ADMINISTRADOR") {

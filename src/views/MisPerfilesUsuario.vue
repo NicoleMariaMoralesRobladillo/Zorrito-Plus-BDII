@@ -2,6 +2,7 @@
 import PerfilUsuario from "@/components/PerfilUsuario.vue";
 import { defineComponent } from "vue";
 import PlataformaService from "@/services/PlataformaService";
+import axios from "axios";
 
 export default defineComponent({
   name: "misperfilesusuario",
@@ -27,7 +28,7 @@ export default defineComponent({
   },
   methods: {
     async getPerfiles(){
-        const response = await PlataformaService.getPlataformas().then(response => {
+       await axios.get('http://localhost:8080/perfil/user').then(response => {
           console.log(response);
         });
 

@@ -4,10 +4,14 @@ import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 library.add(faTrash, faPenToSquare);
 export default {
   props: {
-    Plataforma: String,
-    FechaInicio: String,
-    TiempoDuracion: Number,
-    CapturaPago: String,
+    id: Number,
+    idPlataforma: Number,
+    idUsuario: Number,
+    fechaInicioSoliciutd: String,
+    fechaFinSolicitud: String,
+    codigoPago: String,
+    plataforma: String,
+    usuario: String
   },
   methods: {
     eliminarSolicitud() {
