@@ -11,6 +11,9 @@ library.add(faUser, faRightFromBracket, faPlus, faList);
 export default defineComponent({
   name: "Navbar",
   computed: {
+    obtenerRol() {
+      return localStorage.getItem("rol");
+    },
     getMainPage() {
       if (this.obtenerRol == "CLIENTE") {
         return "/misperfilesusuario";
@@ -25,9 +28,6 @@ export default defineComponent({
     cerrarSesion() {
       localStorage.removeItem("token");
       localStorage.removeItem("rol");
-    },
-    obtenerRol() {
-      return localStorage.getItem("rol");
     },
   },
 });
@@ -69,7 +69,7 @@ export default defineComponent({
           id="navbarNav"
         >
           <ul class="navbar-nav d-lg-flex align-items-center pt-4 pt-lg-0">
-            <template v-if="obtenerRol() == 'CLIENTE'">
+            <template v-if="obtenerRol == 'CLIENTE'">
               <li
                 class="nav-item dropdown pb-2 py-lg-0 px-0 pe-lg-4 text-center"
               >
@@ -187,7 +187,7 @@ export default defineComponent({
                 </ul>
               </li>
             </template>
-            <template v-if="obtenerRol() == 'ADMINISTRADOR'">
+            <template v-if="obtenerRol == 'ADMINISTRADOR'">
               <li
                 class="nav-item dropdown pb-2 py-lg-0 px-0 pe-lg-4 text-center"
               >
@@ -292,7 +292,7 @@ export default defineComponent({
                 ></router-link>
               </li>
             </template>
-            <template v-else-if="obtenerRol() == null">
+            <template v-else-if="obtenerRol == null">
               <li class="nav-item pb-2 pt-0 py-lg-0 px-0 pe-lg-4">
                 <router-link
                   to="/"
