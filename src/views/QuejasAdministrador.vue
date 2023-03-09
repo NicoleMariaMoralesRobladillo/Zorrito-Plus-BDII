@@ -1,27 +1,26 @@
 <script>
 import FilaQueja from "@/components/FilaQueja.vue";
 import { defineComponent } from "vue";
+import axios from "axios";
 export default defineComponent({
   name: "quejasadministrador",
   data: () => {
     return {
-      quejas: [
-        {
-          TipoQueja: "Cuenta",
-          ComentarioQueja:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        },
-      ],
+      quejas: [],
     };
   },
   components: {
     FilaQueja,
   },
   methods: {
-    //filtrar quejas por plataforma
+    async getQuejas() {
+      await axios.get("http://localhost:8080/quejas/admin").then((response) => {
+        this.quejas = response.data;
+      });
+    },
   },
-  mounted() {
-    //cargar todas las quejas
+  created() {
+    this.getQuejas();
   },
 });
 </script>
@@ -34,23 +33,28 @@ export default defineComponent({
     </div>
     <div class="my-5 p-0 mx-md-3 mx-lg-5">
       <table
-        class="solicitudes bordered w-100 text-end text-md-center overflow-hidden"
+        class="quejas bordered w-100 text-end text-md-center overflow-hidden"
         cellspacing="0"
       >
-        <thead class="solicitudes__head bg-dark">
+        <thead class="quejas__head bg-dark">
           <tr>
             <th
-              class="solicitudes__cell text-white fs-5 fw-semibold d-block d-md-table-cell p-3"
+              class="quejas__cell text-white fs-5 fw-semibold d-block d-md-table-cell p-3"
+            >
+              Cliente
+            </th>
+            <th
+              class="quejas__cell text-white fs-5 fw-semibold d-block d-md-table-cell p-3"
             >
               Tipo de queja
             </th>
             <th
-              class="solicitudes__cell text-white fs-5 fw-semibold d-block d-md-table-cell p-3"
+              class="quejas__cell text-white fs-5 fw-semibold d-block d-md-table-cell p-3"
             >
-              Comentario
+              Estado
             </th>
             <th
-              class="solicitudes__cell text-white fs-5 fw-semibold d-block d-md-table-cell p-3"
+              class="quejas__cell text-white fs-5 fw-semibold d-block d-md-table-cell p-3"
             >
               Acciones
             </th>
@@ -60,8 +64,13 @@ export default defineComponent({
           <FilaQueja
             v-for="(queja, index) in quejas"
             :key="index"
-            :TipoQueja="queja.TipoQueja"
-            :ComentarioQueja="queja.ComentarioQueja"
+            :id="queja.id"
+            :comentario="queja.comentario"
+            :idUsuario="queja.idUsuario"
+            :usuario="queja.usuario"
+            :nombreTipoQueja="queja.nombreTipoQueja"
+            :idTipoQueja="queja.idTipoQueja"
+            :estado="queja.estado"
           />
         </tbody>
       </table>
@@ -69,38 +78,26 @@ export default defineComponent({
   </div>
 </template>
 <style scoped lang="scss">
-.form-select--width {
-  width: inherit !important;
-}
-.formulario__button {
-  max-width: fit-content;
-  background-color: #182275;
-  white-space: normal;
-  &:hover,
-  &:active {
-    transform: scale(1.1);
-  }
-}
-.solicitudes {
+.quejas {
   border-collapse: collapse;
 }
-.solicitudes__head {
+.quejas__head {
   display: none;
   border-bottom: 0.1rem solid white;
 }
-.solicitudes__cell::before {
+.quejas__cell::before {
   content: attr(data-label);
   font-weight: 600;
   float: left;
 }
 @media (min-width: 768px) {
-  .solicitudes {
+  .quejas {
     box-shadow: -20px 20px 30px #ffffff26;
   }
-  .solicitudes__head {
+  .quejas__head {
     display: table-header-group;
   }
-  .solicitudes__cell::before {
+  .quejas__cell::before {
     content: "";
   }
 }

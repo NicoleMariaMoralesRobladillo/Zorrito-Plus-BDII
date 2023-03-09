@@ -1,29 +1,26 @@
 <script>
 import InformacionUsuarioAdministrador from "@/components/InformacionUsuarioAdministrador.vue";
 import { defineComponent } from "vue";
+import axios from "axios";
 export default defineComponent({
   name: "usuariosadministrador",
   data: () => {
     return {
-      usuarios: [
-        {
-          Nombres: "a",
-          Apellidos: "a",
-          Correo: "a",
-          Contrasenia: "a",
-          TelefonoContacto: "a",
-          DNI: "a",
-          Tipo: "a",
-        },
-      ],
+      usuarios: [],
     };
   },
   components: {
     InformacionUsuarioAdministrador,
   },
-  methods: {},
+  methods: {
+    async getUsuarios() {
+      await axios.get("http://localhost:8080/usuario/list").then((response) => {
+        this.usuarios = response.data;
+      });
+    },
+  },
   mounted() {
-    //informacion del cliente
+    this.getUsuarios();
   },
 });
 </script>
@@ -34,33 +31,20 @@ export default defineComponent({
         Usuarios
       </h1>
     </div>
-    <div class="p-0 mx-md-3 mx-lg-5">
+    <div class="p-0 mx-md-3 mx-lg-5" v-if="usuarios.length != 0">
       <InformacionUsuarioAdministrador
         v-for="(usuario, index) in usuarios"
         :key="index"
-        :Nombres="usuario.Nombres"
-        :Apellidos="usuario.Apellidos"
-        :Correo="usuario.Correo"
-        :Contrasenia="usuario.Contrasenia"
-        :TelefonoContacto="usuario.TelefonoContacto"
-        :DNI="usuario.DNI"
-        :Tipo="usuario.Tipo"
+        :id="usuario.id"
+        :nombre="usuario.nombre"
+        :apellido="usuario.apellido"
+        :celular="usuario.celular"
+        :correo="usuario.correo"
+        :dni="usuario.dni"
+        :contrasenia="usuario.contrasenia"
+        :rol="usuario.rol"
         class="my-5"
       />
     </div>
   </div>
 </template>
-<style scoped lang="scss">
-.form-select--width {
-  width: inherit !important;
-}
-.formulario__button {
-  max-width: fit-content;
-  background-color: #182275;
-  white-space: normal;
-  &:hover,
-  &:active {
-    transform: scale(1.1);
-  }
-}
-</style>

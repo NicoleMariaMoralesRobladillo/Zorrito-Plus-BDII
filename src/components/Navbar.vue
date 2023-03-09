@@ -66,7 +66,7 @@ export default defineComponent({
           id="navbarNav"
         >
           <ul class="navbar-nav d-lg-flex align-items-center pt-4 pt-lg-0">
-            <template v-if="true">
+            <template v-if="false">
               <li
                 class="nav-item dropdown pb-2 py-lg-0 px-0 pe-lg-4 text-center"
               >
@@ -184,7 +184,7 @@ export default defineComponent({
                 </ul>
               </li>
             </template>
-            <template v-if="false">
+            <template v-if="true">
               <li
                 class="nav-item dropdown pb-2 py-lg-0 px-0 pe-lg-4 text-center"
               >

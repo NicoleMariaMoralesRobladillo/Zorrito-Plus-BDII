@@ -1,28 +1,26 @@
 <script>
 import PerfilAdministrador from "@/components/PerfilAdministrador.vue";
 import { defineComponent } from "vue";
+import axios from "axios";
 export default defineComponent({
   name: "perfilesadministrador",
   data: () => {
     return {
-      perfiles: [
-        {
-          Perfil: "Nicole",
-          Plataforma: "Netflix",
-          Correo: "moralesrobladillon@gmail.com",
-          Contrasenia: "abcd",
-          FechaInicio: "15 / 09 / 2022",
-          TiempoDuracion: "5",
-          PIN: "a",
-        },
-      ],
+      perfiles: [],
     };
   },
   components: {
     PerfilAdministrador,
   },
+  methods: {
+    async getPerfiles() {
+      await axios.get("http://localhost:8080/perfil/admin").then((response) => {
+        this.perfiles = response.data;
+      });
+    },
+  },
   mounted() {
-    //filtrar perfiles
+    this.getPerfiles();
   },
 });
 </script>
@@ -33,33 +31,22 @@ export default defineComponent({
         Perfiles
       </h1>
     </div>
-    <div class="p-0 mx-md-3 mx-lg-5">
+    <div class="p-0 mx-md-3 mx-lg-5" v-if="perfiles.length != 0">
       <PerfilAdministrador
         v-for="(perfil, index) in perfiles"
         :key="index"
-        :Perfil="perfil.Perfil"
-        :Plataforma="perfil.Plataforma"
-        :Correo="perfil.Correo"
-        :Contrasenia="perfil.Contrasenia"
-        :FechaInicio="perfil.FechaInicio"
-        :TiempoDuracion="perfil.TiempoDuracion"
-        :PIN="perfil.PIN"
+        :id="perfil.id"
+        :nombrePerfil="perfil.nombrePerfil"
+        :plataformaPerfil="perfil.plataformaPerfil"
+        :correoPerfil="perfil.correoPerfil"
+        :contraseniaPerfil="perfil.contraseniaPerfil"
+        :pinPerfil="perfil.pinPerfil"
+        :idSolicitud="perfil.idSolicitud"
+        :fechaInicio="perfil.fechaInicio"
+        :fechaFin="perfil.fechaFin"
+        :usuario="perfil.usuario"
         class="my-5"
       />
     </div>
   </div>
 </template>
-<style scoped lang="scss">
-.form-select--width {
-  width: inherit !important;
-}
-.formulario__button {
-  max-width: fit-content;
-  background-color: #182275;
-  white-space: normal;
-  &:hover,
-  &:active {
-    transform: scale(1.1);
-  }
-}
-</style>

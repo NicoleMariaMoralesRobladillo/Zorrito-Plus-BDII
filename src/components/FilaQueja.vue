@@ -1,27 +1,38 @@
 <script>
 export default {
   props: {
-    TipoQueja: String,
-    ComentarioQueja: String,
+    id: Number,
+    comentario: String,
+    idUsuario: Number,
+    usuario: String,
+    nombreTipoQueja: String,
+    idTipoQueja: Number,
+    estado: String,
   },
 };
 </script>
 <template>
   <tr class="bg-dark d-block d-md-table-row mb-4 mb-md-0">
     <td
-      class="solicitudes__cell text-white fs-5 d-block d-md-table-cell p-3"
+      class="quejas__cell text-white fs-5 d-block d-md-table-cell p-3"
+      data-label="Cliente"
+    >
+      {{ usuario }}
+    </td>
+    <td
+      class="quejas__cell text-white fs-5 d-block d-md-table-cell p-3"
       data-label="Plataforma"
     >
-      {{ TipoQueja }}
+      {{ nombreTipoQueja }}
     </td>
     <td
-      class="solicitudes__cell text-white fs-5 d-block d-md-table-cell p-3"
-      data-label="Fecha de inicio"
+      class="quejas__cell text-white fs-5 d-block d-md-table-cell p-3"
+      data-label="Fecha fin"
     >
-      {{ ComentarioQueja }}
+      {{ estado }}
     </td>
     <td
-      class="solicitudes__cell text-white fs-5 d-block d-md-table-cell p-3"
+      class="quejas__cell text-white fs-5 d-block d-md-table-cell p-3"
       data-label="Acciones"
     >
       <div class="d-md-flex justify-content-md-center">
@@ -54,13 +65,13 @@ export default {
     transform: scale(1.1);
   }
 }
-.solicitudes__cell::before {
+.quejas__cell::before {
   content: attr(data-label);
   font-weight: 600;
   float: left;
 }
 @media (min-width: 768px) {
-  .solicitudes__cell::before {
+  .quejas__cell::before {
     content: "";
   }
 }

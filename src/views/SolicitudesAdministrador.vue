@@ -1,30 +1,28 @@
 <script>
 import FilaSolicitud from "@/components/FilaSolicitud.vue";
 import { defineComponent } from "vue";
+import axios from "axios";
 export default defineComponent({
-  name: "SolicitudesAdministrador",
+  name: "solicitudesadministrador",
   data: () => {
     return {
-      solicitudes: [
-        {
-          DNI: "a",
-          Plataforma: "a",
-          FechaInicio: "a",
-          TiempoDuracion: "a",
-          CapturaPago: "a",
-        },
-      ],
-      plataformaSeleccionada: "Todas",
+      solicitudes: [],
     };
   },
   components: {
     FilaSolicitud,
   },
   methods: {
-    //filtrar solicitudes por plataforma
+    async getSolicitudes() {
+      await axios
+        .get("http://localhost:8080/solicitud/admin")
+        .then((response) => {
+          this.solicitudes = response.data;
+        });
+    },
   },
-  mounted() {
-    //cargar todas la solicitudes
+  created() {
+    this.getSolicitudes();
   },
 });
 </script>
@@ -34,36 +32,6 @@ export default defineComponent({
       <h1 class="text-white fs-1 text-center pb-2 lh-base text-uppercase m-0">
         Solicitudes
       </h1>
-      <div class="d-flex flex-wrap align-items-center pt-2">
-        <p class="text-white fs-5 text-start lh-base m-0 pe-4 my-2">
-          Filtrar por plataforma:
-        </p>
-        <select
-          class="form-select--width form-select text-black fs-5 me-4 my-2"
-          aria-label="Default select example"
-          v-model="plataformaSeleccionada"
-        >
-          <option selected class="text-black fs-5">Todas</option>
-          <option value="Netflix" class="text-black fs-5">Netflix</option>
-          <option value="Movistar Play" class="text-black fs-5">
-            Movistar Play
-          </option>
-          <option value="Disney Plus" class="text-black fs-5">
-            Disney Plus
-          </option>
-          <option value="Star Plus" class="text-black fs-5">Star Plus</option>
-          <option value="HBO Max" class="text-black fs-5">HBO Max</option>
-          <option value="Prime Video" class="text-black fs-5">
-            Prime Video
-          </option>
-          <option value="Spotify" class="text-black fs-5">Spotify</option>
-        </select>
-        <button
-          class="formulario__button text-white fs-5 text-center lh-base border-0 px-4 py-3 rounded-4 text-break w-100 my-2"
-        >
-          Filtrar
-        </button>
-      </div>
     </div>
     <div class="my-5 p-0 mx-md-3 mx-lg-5">
       <table
@@ -72,6 +40,11 @@ export default defineComponent({
       >
         <thead class="solicitudes__head bg-dark">
           <tr>
+            <th
+              class="solicitudes__cell text-white fs-5 fw-semibold d-block d-md-table-cell p-3"
+            >
+              Cliente
+            </th>
             <th
               class="solicitudes__cell text-white fs-5 fw-semibold d-block d-md-table-cell p-3"
             >
@@ -85,17 +58,12 @@ export default defineComponent({
             <th
               class="solicitudes__cell text-white fs-5 fw-semibold d-block d-md-table-cell p-3"
             >
-              Nombres del solicitante
+              Fecha fin
             </th>
             <th
               class="solicitudes__cell text-white fs-5 fw-semibold d-block d-md-table-cell p-3"
             >
-              Apellidos del solicitante
-            </th>
-            <th
-              class="solicitudes__cell text-white fs-5 fw-semibold d-block d-md-table-cell p-3"
-            >
-              Teléfono de contacto
+              Código de pago
             </th>
             <th
               class="solicitudes__cell text-white fs-5 fw-semibold d-block d-md-table-cell p-3"
@@ -108,15 +76,14 @@ export default defineComponent({
           <FilaSolicitud
             v-for="(solicitud, index) in solicitudes"
             :key="index"
-            :Nombres="solicitud.DNI"
-            :Apellidos="solicitud.DNI"
-            :TelefonoContacto="solicitud.DNI"
-            :DNI="solicitud.DNI"
-            :Plataforma="solicitud.Plataforma"
-            :FechaInicio="solicitud.FechaInicio"
-            :TiempoDuracion="solicitud.TiempoDuracion"
-            :CapturaPago="solicitud.CapturaPago"
-            :Indice="index"
+            :id="solicitud.id"
+            :usuario="solicitud.usuario"
+            :idUsuario="solicitud.idUsuario"
+            :plataforma="solicitud.plataforma"
+            :idPlataforma="solicitud.idPlataforma"
+            :fechaInicioSolicitud="solicitud.fechaInicioSolicitud"
+            :fechaFinSolicitud="solicitud.fechaFinSolicitud"
+            :codigoPago="solicitud.codigoPago"
           />
         </tbody>
       </table>
@@ -124,18 +91,6 @@ export default defineComponent({
   </div>
 </template>
 <style scoped lang="scss">
-.form-select--width {
-  width: inherit !important;
-}
-.formulario__button {
-  max-width: fit-content;
-  background-color: #182275;
-  white-space: normal;
-  &:hover,
-  &:active {
-    transform: scale(1.1);
-  }
-}
 .solicitudes {
   border-collapse: collapse;
 }

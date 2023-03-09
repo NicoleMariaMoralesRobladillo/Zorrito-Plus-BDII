@@ -1,16 +1,15 @@
 <script>
 import { defineComponent } from "vue";
+import axios from "axios";
 export default defineComponent({
   data() {
     return {
+      nombrePerfil: "",
+      correoPerfil: "",
+      contraseniaPerfil: "",
+      pinPerfil: "",
       solicitud: JSON.parse(this.$route.params.solicitud),
       isModalContainerShow: false,
-      nuevoPerfil: {
-        Correo: "",
-        Contrasenia: "",
-        Perfil: "",
-        PIN: "",
-      },
     };
   },
   methods: {
@@ -20,20 +19,43 @@ export default defineComponent({
     cerrarModal() {
       this.isModalContainerShow = false;
     },
-    eliminarSolicitud() {
-      this.$router.push("/solicitudesadministrador");
-      //borrar solicitud
+    async eliminarSolicitud() {
+      let api = "http://localhost:8080/solicitud/eliminar/" + this.solicitud.id;
+      await axios.get(api).then(
+        (response) => {
+          let verificador = response.data;
+          alert(verificador.message);
+          if (verificador.estado === "200") {
+            cerrarModal();
+            this.$router.push("/solicitudesadministrador");
+          }
+        },
+        (error) => {
+          alert(error);
+        }
+      );
     },
-    eliminarSolicitudButton() {
-      alert("Se ha eliminado la solicitud con éxito.");
-      this.eliminarSolicitud();
-    },
-    agregarPerfil() {
-      //crear perfil
-      alert("Se ha registrado el perfil con éxito.");
-      this.$refs.formularioPerfil.reset();
-      this.cerrarModal();
-      this.eliminarSolicitud();
+    async aprobarSolicitud() {
+      let params = {
+        nombrePerfil: this.nombrePerfil,
+        correoPerfil: this.correoPerfil,
+        contraseniaPerfil: this.contraseniaPerfil,
+        pinPerfil: this.pinPerfil,
+        idSolicitud: this.solicitud.id,
+      };
+      await axios.post("http://localhost:8080/perfil/aprobar", params).then(
+        (response) => {
+          let verificador = response.data;
+          alert(verificador.mensaje);
+          if (verificador.codigo === "200") {
+            cerrarModal();
+            this.$router.push("/solicitudesadministrador");
+          }
+        },
+        (error) => {
+          alert(error);
+        }
+      );
     },
   },
 });
@@ -53,8 +75,8 @@ export default defineComponent({
           >
             <div class="text-center user-icon-perfil">
               <img
-                src="../assets/images/user.png"
-                alt="Foto de perfil"
+                src="../assets/images/queja.png"
+                alt="Foto de solicitud"
                 class="w-100 pb-2"
               />
             </div>
@@ -65,48 +87,12 @@ export default defineComponent({
                 <div
                   class="col-12 col-md-6 text-white fs-5 py-2 fw-semibold lh-base my-auto"
                 >
-                  Nombres del solicitante:
+                  Cliente:
                 </div>
                 <div
                   class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
                 >
-                  {{ solicitud.Nombres }}
-                </div>
-              </div>
-              <div class="row">
-                <div
-                  class="col-12 col-md-6 text-white fs-5 py-2 fw-semibold lh-base my-auto"
-                >
-                  Apellidos del solicitante:
-                </div>
-                <div
-                  class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
-                >
-                  {{ solicitud.Apellidos }}
-                </div>
-              </div>
-              <div class="row">
-                <div
-                  class="col-12 col-md-6 text-white fs-5 py-2 fw-semibold lh-base my-auto"
-                >
-                  Teléfono de contacto:
-                </div>
-                <div
-                  class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
-                >
-                  {{ solicitud.TelefonoContacto }}
-                </div>
-              </div>
-              <div class="row">
-                <div
-                  class="col-12 col-md-6 text-white fs-5 py-2 fw-semibold lh-base my-auto"
-                >
-                  DNI:
-                </div>
-                <div
-                  class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
-                >
-                  {{ solicitud.DNI }}
+                  {{ solicitud.usuario }}
                 </div>
               </div>
               <div class="row">
@@ -116,9 +102,9 @@ export default defineComponent({
                   Plataforma:
                 </div>
                 <div
-                  class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
+                  class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
                 >
-                  {{ solicitud.Plataforma }}
+                  {{ solicitud.plataforma }}
                 </div>
               </div>
               <div class="row">
@@ -130,31 +116,31 @@ export default defineComponent({
                 <div
                   class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
                 >
-                  {{ solicitud.FechaInicio }}
+                  {{ solicitud.fechaInicioSolicitud }}
                 </div>
               </div>
               <div class="row">
                 <div
                   class="col-12 col-md-6 text-white fs-5 py-2 fw-semibold lh-base my-auto"
                 >
-                  Tiempo de duración (en meses):
+                  Fecha fin:
                 </div>
                 <div
                   class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
                 >
-                  {{ solicitud.TiempoDuracion }}
+                  {{ solicitud.fechaFinSolicitud }}
                 </div>
               </div>
               <div class="row">
                 <div
                   class="col-12 col-md-6 text-white fs-5 py-2 fw-semibold lh-base my-auto"
                 >
-                  Captura de pago (URL):
+                  Código de pago:
                 </div>
                 <div
-                  class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto text-break"
+                  class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto"
                 >
-                  {{ solicitud.CapturaPago }}
+                  {{ solicitud.codigoPago }}
                 </div>
               </div>
             </div>
@@ -171,7 +157,7 @@ export default defineComponent({
           </button>
           <button
             type="button"
-            v-on:click="eliminarSolicitudButton"
+            v-on:click="eliminarSolicitud"
             class="mt-4 formulario__button text-white fs-5 text-center lh-base border-0 px-4 py-3 rounded-4 text-break w-100 mx-3"
           >
             Eliminar solicitud
@@ -196,12 +182,7 @@ export default defineComponent({
     <div class="ventanaModalPublicacion">
       <div class="bg-black rounded-4">
         <div class="formulario p-5 rounded-4 w-100">
-          <form
-            ref="formularioPerfil"
-            method="post"
-            @submit.prevent="agregarPerfil"
-            class="d-flex flex-column"
-          >
+          <form @submit.prevent="aprobarSolicitud" class="d-flex flex-column">
             <h1
               class="text-white fs-1 text-center lh-base pb-3 m-0 fw-bold text-uppercase"
             >
@@ -218,7 +199,7 @@ export default defineComponent({
                   type="email"
                   id="correoRegistroPerfil"
                   name="correoRegistroPerfil"
-                  v-model="nuevoPerfil.Correo"
+                  v-model="correoPerfil"
                   class="formulario__input border-0 rounded-pill py-2 px-3 d-block w-100"
                   required
                 />
@@ -231,7 +212,7 @@ export default defineComponent({
                   type="password"
                   id="contraseniaRegistroPerfil"
                   name="contraseniaRegistroPerfil"
-                  v-model="nuevoPerfil.Contrasenia"
+                  v-model="contraseniaPerfil"
                   class="formulario__input border-0 rounded-pill py-2 px-3 d-block w-100"
                   required
                 />
@@ -246,7 +227,7 @@ export default defineComponent({
                   type="text"
                   id="perfilRegistroPerfil"
                   name="perfilRegistroPerfil"
-                  v-model="nuevoPerfil.Perfil"
+                  v-model="nombrePerfil"
                   class="formulario__input border-0 rounded-pill py-2 px-3 d-block w-100"
                   required
                 />
@@ -259,7 +240,7 @@ export default defineComponent({
                   type="password"
                   id="PIN"
                   name="PIN"
-                  v-model="nuevoPerfil.PIN"
+                  v-model="pinPerfil"
                   class="formulario__input border-0 rounded-pill py-2 px-3 d-block w-100"
                   required
                 />
@@ -297,52 +278,6 @@ export default defineComponent({
 }
 .user-icon-perfil {
   max-width: 15rem;
-}
-.perfil-card {
-  &--f84440 {
-    box-shadow: -20px 20px 30px #f8444054;
-  }
-  &--009FF7 {
-    box-shadow: -20px 20px 30px #009ff754;
-  }
-  &--05009D {
-    box-shadow: -20px 20px 30px #05009d54;
-  }
-  &--FF5400 {
-    box-shadow: -20px 20px 30px #ff540054;
-  }
-  &--9200BB {
-    box-shadow: -20px 20px 30px #9200bb54;
-  }
-  &--D0009C {
-    box-shadow: -20px 20px 30px #d0009c54;
-  }
-  &--18D860 {
-    box-shadow: -20px 20px 30px #18d86054;
-  }
-}
-.perfil-text {
-  &--f84440 {
-    color: #f84440;
-  }
-  &--009FF7 {
-    color: #009ff7;
-  }
-  &--05009D {
-    color: #05009d;
-  }
-  &--FF5400 {
-    color: #ff5400;
-  }
-  &--9200BB {
-    color: #9200bb;
-  }
-  &--D0009C {
-    color: #d0009c;
-  }
-  &--18D860 {
-    color: #18d860;
-  }
 }
 .formulario__button {
   max-width: fit-content;

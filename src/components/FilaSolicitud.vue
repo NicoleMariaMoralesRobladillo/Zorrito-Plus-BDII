@@ -1,15 +1,14 @@
 <script>
 export default {
   props: {
-    Nombres: String,
-    Apellidos: String,
-    TelefonoContacto: String,
-    DNI: String,
-    Plataforma: String,
-    FechaInicio: String,
-    TiempoDuracion: String,
-    CapturaPago: String,
-    Indice: Number,
+    id: Number,
+    usuario: String,
+    idUsuario: Number,
+    plataforma: String,
+    idPlataforma: Number,
+    fechaInicioSolicitud: String,
+    fechaFinSolicitud: String,
+    codigoPago: String,
   },
 };
 </script>
@@ -17,33 +16,33 @@ export default {
   <tr class="bg-dark d-block d-md-table-row mb-4 mb-md-0">
     <td
       class="solicitudes__cell text-white fs-5 d-block d-md-table-cell p-3"
+      data-label="Cliente"
+    >
+      {{ usuario }}
+    </td>
+    <td
+      class="solicitudes__cell text-white fs-5 d-block d-md-table-cell p-3"
       data-label="Plataforma"
     >
-      {{ Plataforma }}
+      {{ plataforma }}
     </td>
     <td
       class="solicitudes__cell text-white fs-5 d-block d-md-table-cell p-3"
       data-label="Fecha de inicio"
     >
-      {{ FechaInicio }}
+      {{ fechaInicioSolicitud }}
     </td>
     <td
       class="solicitudes__cell text-white fs-5 d-block d-md-table-cell p-3"
-      data-label="Nombres del solicitante"
+      data-label="Fecha fin"
     >
-      {{ Nombres }}
+      {{ fechaFinSolicitud }}
     </td>
     <td
       class="solicitudes__cell text-white fs-5 d-block d-md-table-cell p-3"
-      data-label="Apellidos del solicitante"
+      data-label="Código de pago"
     >
-      {{ Apellidos }}
-    </td>
-    <td
-      class="solicitudes__cell text-white fs-5 d-block d-md-table-cell p-3"
-      data-label="Teléfono de contacto"
-    >
-      {{ TelefonoContacto }}
+      {{ codigoPago }}
     </td>
     <td
       class="solicitudes__cell text-white fs-5 d-block d-md-table-cell p-3"
