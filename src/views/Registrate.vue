@@ -16,22 +16,6 @@ export default defineComponent({
     };
   },
   methods: {
-    resetearFormularioRegistrate() {
-      let nombreRegistrate = document.getElementById("nombreRegistrate");
-      let apellidoRegistrate = document.getElementById("apellidoRegistrate");
-      let celularRegistrate = document.getElementById("celularRegistrate");
-      let correoRegistrate = document.getElementById("correoRegistrate");
-      let dniRegistrate = document.getElementById("dniRegistrate");
-      let contraseniaRegistrate = document.getElementById(
-        "contraseniaRegistrate"
-      );
-      nombreRegistrate.value = "";
-      apellidoRegistrate.value = "";
-      celularRegistrate.value = "";
-      correoRegistrate.value = "";
-      dniRegistrate.value = "";
-      contraseniaRegistrate.value = "";
-    },
     async registrarCliente() {
       let params = {
         nombre: this.nuevoCliente.nombre,
@@ -44,14 +28,17 @@ export default defineComponent({
       await axios.post("http://localhost:8080/usuario/registrar", params).then(
         (response) => {
           let verificador = response.data;
+          let formularioRegistrate = document.getElementById(
+            "formularioRegistrate"
+          );
           alert(verificador.mensaje);
           if (verificador.codigo === "200") {
-            resetearFormularioRegistrate();
+            formularioRegistrate.reset();
             this.$router.push("/iniciarsesion");
           }
         },
         (error) => {
-          alert(error.mensaje);
+          alert(error);
         }
       );
     },
@@ -74,6 +61,7 @@ export default defineComponent({
         >
           <div class="formulario p-5 rounded-4 w-100">
             <form
+              id="formularioRegistrate"
               class="d-flex flex-column"
               method="post"
               @submit.prevent="registrarCliente"

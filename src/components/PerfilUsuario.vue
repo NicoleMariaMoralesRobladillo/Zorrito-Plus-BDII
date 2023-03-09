@@ -1,40 +1,21 @@
 <script>
+import moment from "moment";
 export default {
-  data: () => {
-    return {
-      plataforma: null,
-      solicitud: null,
-    };
-  },
   props: {
-    id: Number,
     nombrePerfil: String,
+    plataformaPerfil: String,
     correoPerfil: String,
     contraseniaPerfil: String,
+    fechaInicio: Date,
+    fechaFin: Date,
     pinPerfil: String,
-    idSolicitud: Number,
   },
   methods: {
-    async getSolicitud() {
-      await axios
-        .get("http://localhost:8080/solicitud/user")
-        .then((response) => {
-          this.solicitud = response.data.filter(
-            (solicitud) => (solicitud.id = this.idSolicitud)
-          );
-        });
+    formatearFecha(fechaTipoDate) {
+      if (fechaTipoDate) {
+        return moment(fechaTipoDate).format("YYYY-MM-DD");
+      }
     },
-    async getPlataforma() {
-      await axios.get("http://localhost:8080/plataforma").then((response) => {
-        this.plataforma = response.data.filter(
-          (plataforma) => (plataforma.id = this.solicitud.idPlataforma)
-        );
-      });
-    },
-  },
-  created() {
-    this.getSolicitud();
-    this.getPlataforma();
   },
 };
 </script>
@@ -64,7 +45,7 @@ export default {
               Plataforma:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              {{ plataforma }}
+              {{ plataformaPerfil }}
             </div>
           </div>
           <div class="row">
@@ -96,7 +77,7 @@ export default {
               Fecha de inicio:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              {{ solicitud.fechaInicioSolicitud }}
+              {{ formatearFecha(fechaInicio) }}
             </div>
           </div>
           <div class="row">
@@ -106,7 +87,7 @@ export default {
               Fecha fin:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              {{ solicitud.fechaFinSolicitud }}
+              {{ formatearFecha(fechaFin) }}
             </div>
           </div>
           <div class="row">
