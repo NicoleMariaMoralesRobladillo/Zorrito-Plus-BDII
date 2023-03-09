@@ -1,5 +1,4 @@
 <script>
-window.location.reload();
 import PerfilUsuario from "@/components/PerfilUsuario.vue";
 import { defineComponent } from "vue";
 import axios from "axios";
