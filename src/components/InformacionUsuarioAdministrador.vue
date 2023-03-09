@@ -17,7 +17,7 @@ export default {
   methods: {
     async eliminarUsuario() {
       let api = "http://localhost:8080/usuario/delete/" + this.$props.id;
-      await axios.get(api).then(
+      await axios.delete(api).then(
         (response) => {
           let verificador = response.data;
           alert(verificador.mensaje);

@@ -11,13 +11,15 @@ library.add(faUser, faRightFromBracket, faPlus, faList);
 export default defineComponent({
   name: "Navbar",
   computed: {
+    obtenerRol() {
+      return localStorage.getItem("rol");
+    },
     getMainPage() {
-      let autorizado = "no-autorizado";
-      if (autorizado == "usuario") {
+      if (this.obtenerRol == "CLIENTE") {
         return "/misperfilesusuario";
-      } else if (autorizado == "administrador") {
+      } else if (this.obtenerRol == "ADMINISTRADOR") {
         return "/solicitudesadministrador";
-      } else {
+      } else if (this.obtenerRol == null) {
         return "/";
       }
     },
@@ -25,6 +27,7 @@ export default defineComponent({
   methods: {
     cerrarSesion() {
       localStorage.removeItem("token");
+      localStorage.removeItem("rol");
     },
   },
 });
@@ -66,7 +69,7 @@ export default defineComponent({
           id="navbarNav"
         >
           <ul class="navbar-nav d-lg-flex align-items-center pt-4 pt-lg-0">
-            <template v-if="false">
+            <template v-if="obtenerRol == 'CLIENTE'">
               <li
                 class="nav-item dropdown pb-2 py-lg-0 px-0 pe-lg-4 text-center"
               >
@@ -184,7 +187,7 @@ export default defineComponent({
                 </ul>
               </li>
             </template>
-            <template v-if="true">
+            <template v-if="obtenerRol == 'ADMINISTRADOR'">
               <li
                 class="nav-item dropdown pb-2 py-lg-0 px-0 pe-lg-4 text-center"
               >
@@ -227,6 +230,17 @@ export default defineComponent({
                         icon="fa-solid fa-list"
                         class="pe-2"
                       />Plataformas</router-link
+                    >
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <router-link
+                      to="/ingresarplataformaadministrador"
+                      class="dropdown-item fs-5 text-white text-break"
+                      ><font-awesome-icon
+                        icon="fa-solid fa-plus"
+                        class="pe-2"
+                      />Ingresar plataforma</router-link
                     >
                   </li>
                 </ul>
@@ -278,7 +292,7 @@ export default defineComponent({
                 ></router-link>
               </li>
             </template>
-            <template v-else-if="false">
+            <template v-else-if="obtenerRol == null">
               <li class="nav-item pb-2 pt-0 py-lg-0 px-0 pe-lg-4">
                 <router-link
                   to="/"

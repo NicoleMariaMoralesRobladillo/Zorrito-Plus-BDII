@@ -23,6 +23,7 @@ export default defineComponent({
           let verificador = response.data;
           if (verificador.codigo === "200") {
             localStorage.setItem("token", JSON.stringify(verificador.token));
+            localStorage.setItem("rol", verificador.usuarioDTO.rol);
             setAuthHeader(verificador.token);
             if (verificador.usuarioDTO.rol == "CLIENTE") {
               this.$router.push("/misperfilesusuario");

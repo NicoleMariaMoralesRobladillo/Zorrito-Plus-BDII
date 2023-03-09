@@ -91,20 +91,6 @@ const routes = [
     },
   },
   {
-    path: "/missolicitudesusuario",
-    name: "missolicitudesusuario",
-    // route level code-splitting
-    // this generates a separate chunk (missolicitudesusuario.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(
-        /* webpackChunkName: "missolicitudesusuario" */ "../views/MisSolicitudesUsuario.vue"
-      ),
-    meta: {
-      title: "Mis solicitudes | Zorrito +",
-    },
-  },
-  {
     path: "/editarsolicitudusuario/:solicitud",
     name: "editarsolicitudusuario",
     // route level code-splitting
@@ -273,6 +259,20 @@ const routes = [
     },
   },
   {
+    path: "/ingresarplataformaadministrador",
+    name: "ingresarplataformaadministrador",
+    // route level code-splitting
+    // this generates a separate chunk (ingresarplataformaadministrador.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "ingresarplataformaadministrador" */ "../views/IngresarPlataformaAdministrador.vue"
+      ),
+    meta: {
+      title: "Ingresar plataforma | Zorrito +",
+    },
+  },
+  {
     path: "/plataformasadministrador",
     name: "plataformasadministrador",
     // route level code-splitting
@@ -284,6 +284,20 @@ const routes = [
       ),
     meta: {
       title: "Plataformas | Zorrito +",
+    },
+  },
+  {
+    path: "/editarplataformasadministrador/:plataforma",
+    name: "editarplataformasadministrador",
+    // route level code-splitting
+    // this generates a separate chunk (editarplataformasadministrador.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "editarplataformasadministrador" */ "../views/EditarPlataformaAdministrador.vue"
+      ),
+    meta: {
+      title: "Editar plataforma | Zorrito +",
     },
   },
 ];

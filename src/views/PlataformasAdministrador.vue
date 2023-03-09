@@ -1,59 +1,46 @@
 <script>
-import QuejaUsuario from "@/components/QuejaUsuario.vue";
+import PlataformaAdministrador from "@/components/PlataformaAdministrador.vue";
 import { defineComponent } from "vue";
+import axios from "axios";
 export default defineComponent({
-  name: "misquejasusuario",
+  name: "plataformasadministrador",
   data: () => {
     return {
-      misQuejas: [
-        {
-          TipoQueja: "Cuenta",
-          ComentarioQueja:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        },
-      ],
+      plataformas: [],
     };
   },
   components: {
-    QuejaUsuario,
+    PlataformaAdministrador,
   },
   methods: {
-    //filtrar perfiles por plataforma
+    async getPlataformas() {
+      await axios.get("http://localhost:8080/plataforma").then((response) => {
+        this.plataformas = response.data;
+      });
+    },
   },
-  mounted() {
-    //filtrar perfiles del usuario
+  created() {
+    this.getPlataformas();
   },
 });
 </script>
 <template>
-  <div class="misperfilesusuario px-4">
+  <div class="plataformasadministrador px-4">
     <div class="my-5 p-0 mx-md-3 mx-lg-5">
       <h1 class="text-white fs-1 text-center pb-2 lh-base text-uppercase m-0">
-        Mis quejas
+        Plataformas
       </h1>
     </div>
     <div class="p-0 mx-md-3 mx-lg-5">
-      <QuejaUsuario
-        v-for="(miQueja, index) in misQuejas"
+      <PlataformaAdministrador
+        v-for="(plataforma, index) in plataformas"
         :key="index"
-        :TipoQueja="miQueja.TipoQueja"
-        :ComentarioQueja="miQueja.ComentarioQueja"
+        :id="plataforma.id"
+        :nombrePlataforma="plataforma.nombrePlataforma"
+        :precioPlataforma="plataforma.precioPlataforma"
+        :estado="plataforma.es"
         class="my-5"
       />
     </div>
   </div>
 </template>
-<style scoped lang="scss">
-.form-select--width {
-  width: inherit !important;
-}
-.formulario__button {
-  max-width: fit-content;
-  background-color: #182275;
-  white-space: normal;
-  &:hover,
-  &:active {
-    transform: scale(1.1);
-  }
-}
-</style>

@@ -2,32 +2,43 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 library.add(faTrash, faPenToSquare);
+import axios from "axios";
 export default {
   props: {
-    TipoQueja: String,
-    ComentarioQueja: String,
+    id: Number,
+    nombrePlataforma: String,
+    precioPlataforma: Float64Array,
+    estado: String,
   },
   methods: {
-    eliminarQueja() {
-      //función eliminar queja
-    },
-    eliminarQuejaButton() {
-      alert("Se ha eliminado la queja con éxito.");
-      this.eliminarQueja();
+    async eliminarPlataforma() {
+      let api = "http://localhost:8080/plataforma/eliminar/" + this.$props.id;
+      await axios.get(api).then(
+        (response) => {
+          let verificador = response.data;
+          alert(verificador.mensaje);
+          if (verificador.codigo === "200") {
+            window.location.reload();
+          }
+        },
+        (error) => {
+          alert(error);
+        }
+      );
     },
   },
 };
 </script>
 <template>
-  <div class="bg-dark p-5 position-relative queja-card">
+  <div class="bg-dark p-5 position-relative plataforma-card">
     <div class="row">
       <div
         class="col-12 col-sm-6 col-md-4 d-flex justify-content-center align-items-center"
       >
-        <div class="text-center queja-icon">
+        <div class="text-center plataforma-icon">
           <img
             src="../assets/images/queja.png"
-            alt="Queja"
+            alt="Plataforma"
             class="w-100 pb-2"
           />
         </div>
@@ -36,24 +47,36 @@ export default {
         <div class="w-100">
           <div class="row">
             <div
-              class="col-12 col-md-4 fs-5 py-2 fw-semibold lh-base my-auto text-white"
+              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto text-white"
             >
-              Tipo de queja:
+              Nombre:
             </div>
-            <div class="col-12 col-md-8 text-white fs-5 py-2 lh-base my-auto">
-              {{ TipoQueja }}
+            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
+              {{ nombrePlataforma }}
             </div>
           </div>
           <div class="row">
             <div
-              class="col-12 col-md-4 fs-5 py-2 fw-semibold lh-base my-auto text-white"
+              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto text-white"
             >
-              Comentario:
+              Precio:
             </div>
             <div
-              class="col-12 col-md-8 text-white fs-5 py-2 text-break lh-base my-auto"
+              class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
             >
-              {{ ComentarioQueja }}
+              {{ precioPlataforma }}
+            </div>
+          </div>
+          <div class="row">
+            <div
+              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto text-white"
+            >
+              Estado:
+            </div>
+            <div
+              class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
+            >
+              {{ estado }}
             </div>
           </div>
         </div>
@@ -62,9 +85,9 @@ export default {
     <div class="position-absolute end-0 top-0 button__box p-4 d-flex flex-row">
       <router-link
         :to="{
-          name: 'editarquejausuario',
+          name: 'editarplataformaadministrador',
           params: {
-            queja: JSON.stringify(this.$props),
+            plataforma: JSON.stringify(this.$props),
           },
         }"
         class="nav-link active fs-5 p-0 fw-bold text-uppercase"
@@ -81,7 +104,7 @@ export default {
       <button
         type="button"
         class="button button--eliminar ps-2 bg-transparent border-0"
-        v-on:click="eliminarQuejaButton"
+        v-on:click="eliminarPlataforma"
       >
         <font-awesome-icon icon="fa-solid fa-trash" class="fs-4" />
       </button>
@@ -89,7 +112,7 @@ export default {
   </div>
 </template>
 <style scoped lang="scss">
-.queja {
+.plataforma {
   &-icon {
     max-width: 15rem;
   }

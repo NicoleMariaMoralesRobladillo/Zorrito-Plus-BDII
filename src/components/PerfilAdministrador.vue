@@ -19,7 +19,7 @@ export default {
   methods: {
     async eliminarPerfil() {
       let api = "http://localhost:8080/perfil/eliminarBD/" + this.$props.id;
-      await axios.get(api).then(
+      await axios.delete(api).then(
         (response) => {
           let verificador = response.data;
           alert(verificador.mensaje);
