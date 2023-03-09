@@ -26,7 +26,6 @@ export default defineComponent({
           let verificador = response.data;
           alert(verificador.message);
           if (verificador.estado === "200") {
-            cerrarModal();
             this.$router.push("/solicitudesadministrador");
           }
         },
@@ -48,7 +47,7 @@ export default defineComponent({
           let verificador = response.data;
           alert(verificador.mensaje);
           if (verificador.codigo === "200") {
-            cerrarModal();
+            this.cerrarModal();
             this.$router.push("/solicitudesadministrador");
           }
         },
