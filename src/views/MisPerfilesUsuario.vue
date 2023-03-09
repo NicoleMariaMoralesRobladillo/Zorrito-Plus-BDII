@@ -21,6 +21,8 @@ export default defineComponent({
   },
   mounted() {
     this.getMisPerfiles();
+  },
+  created() {
     window.location.reload();
   },
 });
