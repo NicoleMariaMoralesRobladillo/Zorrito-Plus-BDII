@@ -24,9 +24,12 @@ export default defineComponent({
       });
     },
     async editarSolicitud() {
-      this.solicitud.fechaFinSolicitud = this.solicitud.fechaInicioSolicitud;
+      let fechaInicioSolicitudDate = Date.parse(
+        this.solicitud.fechaInicioSolicitud
+      );
+      this.solicitud.fechaFinSolicitud = new Date(fechaInicioSolicitudDate);
       this.solicitud.fechaFinSolicitud.setMonth(
-        this.solicitud.fechaInicioSolicitud.getMonth() + this.tiempoDuracion
+        this.solicitud.fechaFinSolicitud.getMonth() + this.tiempoDuracion
       );
       let params = {
         id: this.solicitud.id,
@@ -85,7 +88,7 @@ export default defineComponent({
           <h1
             class="text-white fs-1 text-center pb-2 lh-base text-uppercase m-0"
           >
-            Editar perfil
+            Editar solicitud
           </h1>
           <div class="row">
             <div
