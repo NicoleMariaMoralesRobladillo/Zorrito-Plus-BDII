@@ -54,8 +54,15 @@ export default defineComponent({
         </div>
         <div class="col-12 col-md-6 mb-3 m-md-0 d-flex justify-content-center order-0 order-md-1">
           <div class="formulario p-5 rounded-4 w-100">
-            <form id="formularioRegistrate" class="d-flex flex-column" method="post" @submit.prevent="registrarCliente">
-              <h1 class="text-white fs-1 text-center lh-base pb-3 m-0 fw-bold text-uppercase">
+            <form
+              id="formularioRegistrate"
+              class="d-flex flex-column"
+              method="post"
+              @submit.prevent="registrarCliente"
+            >
+              <h1
+                class="text-white fs-1 text-center lh-base pb-3 m-0 fw-bold text-uppercase"
+              >
                 Regístrate
               </h1>
               <label for="nombreRegistrate" class="text-white fs-5 text-start lh-base py-3">Nombre</label>

@@ -2,6 +2,7 @@
 import MetodosDePago from "@/components/MetodosDePago.vue";
 import { defineComponent } from "vue";
 import moment from "moment";
+import axios from "axios";
 export default defineComponent({
   name: "solicitarperfilusuario",
   data: () => {
@@ -9,19 +10,67 @@ export default defineComponent({
       tiempoDuracion: 0,
       plataformas: [],
       solicitud: {
-        idUsuario: null,
         idPlataforma: null,
-        fechaInicioSolicitud: "",
-        fechaFinSolicitud: "",
+        fechaInicioSolicitud: null,
+        fechaFinSolicitud: null,
         codigoPago: "",
       },
     };
   },
   methods: {
+    formatearFecha(fechaTipoDate) {
+      if (fechaTipoDate) {
+        return moment(fechaTipoDate).format("YYYY-MM-DD");
+      }
+    },
     async getPlataforma() {
       await axios.get("http://localhost:8080/plataforma").then((response) => {
         this.plataformas = response.data;
       });
+    },
+    async registrarSolicitud() {
+      this.solicitud.fechaFinSolicitud = this.solicitud.fechaInicioSolicitud;
+      this.solicitud.fechaFinSolicitud.setMonth(
+        this.solicitud.fechaInicioSolicitud.getMonth() + this.tiempoDuracion
+      );
+      let params = {
+        idPlataforma: this.solicitud.idPlataforma,
+        fechaInicioSolicitud: this.formatearFecha(
+          this.solicitud.fechaInicioSolicitud
+        ),
+        fechaFinSolicitud: this.formatearFecha(
+          this.solicitud.fechaFinSolicitud
+        ),
+        codigoPago: this.solicitud.codigoPago,
+      };
+      let formularioSolicitud = document.getElementById("formularioSolicitud");
+      await axios
+        .post("http://localhost:8080/solicitud/registrar", params)
+        .then(
+          (response) => {
+            let verificador = response.data;
+            alert(verificador.message);
+            if (verificador.estado === "200") {
+              formularioSolicitud.reset();
+            }
+          },
+          (error) => {
+            alert(error);
+          }
+        );
+    },
+  },
+  computed: {
+    calcularTotalPagar() {
+      let precio = 0;
+      if (this.solicitud.idPlataforma != null) {
+        let plataformaSeleccionada = this.plataformas.filter(
+          (plataforma) => plataforma.id === this.solicitud.idPlataforma
+        );
+        precio =
+          plataformaSeleccionada[0].precioPlataforma * this.tiempoDuracion;
+      }
+      return precio;
     },
   },
   created() {
@@ -30,97 +79,18 @@ export default defineComponent({
   components: {
     MetodosDePago,
   },
-  calcularTotalPagar() {
-    let precio = 0;
-    switch (this.$data.solicitante.Plataforma) {
-      case "Netflix":
-        precio = 12 * this.$data.tiempoDuracion;
-        break;
-      case "Movistar Play":
-        precio = 5 * this.$data.tiempoDuracion;
-        break;
-      case "Disney Plus":
-        precio = 7 * this.$data.tiempoDuracion;
-        break;
-      case "Star Plus":
-        precio = 7 * this.$data.tiempoDuracion;
-        break;
-      case "HBO Max":
-        precio = 8 * this.$data.tiempoDuracion;
-        break;
-      case "Prime Video":
-        precio = 7 * this.$data.tiempoDuracion;
-        break;
-      case "Spotify":
-        precio = 7 * this.$data.tiempoDuracion;
-        break;
-    }
-    return precio;
-  },
-  agregarSolicitud() {
-    //función agregar solicitud
-    alert("Se ha enviado la solicitud con éxito.");
-    this.$refs.formularioSolicitud.reset();
-  },
-  format_date(value) {
-    if (value) {
-      return moment(value).format("DD / MM / YYYY");
-    }
-  },
 });
 </script>
 <template>
   <div class="solicitarperfilusuario px-4">
     <div class="my-5 p-0 mx-md-3 mx-lg-5">
       <div class="bg-dark p-5 panel-solicitar-perfil mx-auto">
-        <form ref="formularioSolicitud" @submit.prevent="agregarSolicitud">
+        <form id="formularioSolicitud" @submit.prevent="registrarSolicitud">
           <h1
             class="text-white fs-1 text-center pb-2 lh-base text-uppercase m-0"
           >
             Solicitar perfil
           </h1>
-          <div class="row">
-            <div
-              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base panel-solicitar-perfil__text my-auto"
-            >
-              Nombres del solicitante:
-            </div>
-            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              a
-            </div>
-          </div>
-          <div class="row">
-            <div
-              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base panel-solicitar-perfil__text my-auto"
-            >
-              Apellidos del solicitante:
-            </div>
-            <div
-              class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
-            >
-              a
-            </div>
-          </div>
-          <div class="row">
-            <div
-              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base panel-solicitar-perfil__text my-auto"
-            >
-              Teléfono de contacto:
-            </div>
-            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              a
-            </div>
-          </div>
-          <div class="row">
-            <div
-              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base panel-solicitar-perfil__text my-auto"
-            >
-              DNI:
-            </div>
-            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              a
-            </div>
-          </div>
           <div class="row">
             <div
               class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base panel-solicitar-perfil__text my-auto"
@@ -133,30 +103,22 @@ export default defineComponent({
               <select
                 class="form-select text-black fs-5 w-100"
                 aria-label="Default select example"
-                v-model="solicitante.Plataforma"
+                v-model="solicitud.idPlataforma"
               >
-                <option selected class="text-black fs-5">Netflix</option>
-                <option value="Movistar Play" class="text-black fs-5">
-                  Movistar Play
+                <option
+                  v-for="plataforma in plataformas"
+                  :value="plataforma.idPlataforma"
+                  class="text-black fs-5"
+                >
+                  {{ plataforma.nombrePlataforma }}
                 </option>
-                <option value="Disney Plus" class="text-black fs-5">
-                  Disney Plus
-                </option>
-                <option value="Star Plus" class="text-black fs-5">
-                  Star Plus
-                </option>
-                <option value="HBO Max" class="text-black fs-5">HBO Max</option>
-                <option value="Prime Video" class="text-black fs-5">
-                  Prime Video
-                </option>
-                <option value="Spotify" class="text-black fs-5">Spotify</option>
               </select>
             </div>
           </div>
           <div class="row">
             <div class="col-12 col-md-6 my-auto">
               <label
-                for="fechaInicio"
+                for="fechaInicioSolicitud"
                 class="fs-5 py-2 fw-semibold lh-base panel-solicitar-perfil__text"
                 >Fecha de inicio:</label
               >
@@ -164,10 +126,10 @@ export default defineComponent({
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
               <input
                 type="date"
-                id="fechaInicio"
-                name="fechaInicio"
+                id="fechaInicioSolicitud"
+                name="fechaInicioSolicitud"
                 class="border-0 rounded-pill py-2 px-3 w-100"
-                v-model="solicitante.FechaInicio"
+                v-model="solicitud.fechaInicioSolicitud"
                 required
               />
             </div>
@@ -187,7 +149,7 @@ export default defineComponent({
                 id="tiempoDuracion"
                 name="tiempoDuracion"
                 class="border-0 rounded-pill py-2 px-3 w-100"
-                v-model.number="solicitante.TiempoDuracion"
+                v-model.number="tiempoDuracion"
                 required
               />
             </div>
@@ -205,18 +167,18 @@ export default defineComponent({
           <div class="row">
             <div class="col-12 col-md-6 my-auto">
               <label
-                for="capturaPago"
+                for="codigoPago"
                 class="fs-5 py-2 fw-semibold lh-base panel-solicitar-perfil__text"
-                >Captura de pago (URL):</label
+                >Código de pago:</label
               >
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
               <input
-                type="url"
-                id="capturaPago"
-                name="capturaPago"
+                type="text"
+                id="codigoPago"
+                name="codigoPago"
                 class="border-0 rounded-pill py-2 px-3 w-100"
-                v-model="solicitante.CapturaPago"
+                v-model="solicitud.codigoPago"
                 required
               />
             </div>

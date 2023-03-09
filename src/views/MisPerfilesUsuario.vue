@@ -36,12 +36,13 @@ export default defineComponent({
       <PerfilUsuario
         v-for="(miPerfil, index) in misPerfiles"
         :key="index"
-        :id="miPerfil.id"
         :nombrePerfil="miPerfil.nombrePerfil"
+        :plataformaPerfil="miPerfil.plataformaPerfil"
         :correoPerfil="miPerfil.correoPerfil"
         :contraseniaPerfil="miPerfil.contraseniaPerfil"
+        :fechaInicio="miPerfil.fechaInicio"
+        :fechaFin="miPerfil.fechaFin"
         :pinPerfil="miPerfil.pinPerfil"
-        :idSolicitud="miPerfil.idSolicitud"
         class="my-5"
       />
     </div>
