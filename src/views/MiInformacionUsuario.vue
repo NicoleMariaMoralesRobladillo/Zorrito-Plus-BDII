@@ -42,6 +42,7 @@ export default defineComponent({
     </div>
     <div class="p-0 mx-md-3 mx-lg-5" v-if="miInformacion != null">
       <InformacionUsuario
+        :id="miInformacion.id"
         :nombre="miInformacion.nombre"
         :apellido="miInformacion.apellido"
         :celular="miInformacion.celular"
