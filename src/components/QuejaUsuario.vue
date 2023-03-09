@@ -16,8 +16,8 @@ export default {
       await axios.get(api).then(
         (response) => {
           let verificador = response.data;
-          alert(verificador.message);
-          if (verificador.estado === "200") {
+          alert(verificador.mensaje);
+          if (verificador.codigo === "200") {
             window.location.reload();
           }
         },
