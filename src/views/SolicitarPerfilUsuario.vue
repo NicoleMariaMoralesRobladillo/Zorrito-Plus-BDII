@@ -32,9 +32,9 @@ export default defineComponent({
       let fechaInicioSolicitudDate = Date.parse(
         this.solicitud.fechaInicioSolicitud
       );
-      this.solicitud.fechaFinSolicitud = fechaInicioSolicitudDate;
+      this.solicitud.fechaFinSolicitud = new Date(fechaInicioSolicitudDate);
       this.solicitud.fechaFinSolicitud.setMonth(
-        fechaInicioSolicitudDate.getMonth() + this.tiempoDuracion
+        this.solicitud.fechaFinSolicitud.getMonth() + this.tiempoDuracion
       );
       let params = {
         idPlataforma: this.solicitud.idPlataforma,
