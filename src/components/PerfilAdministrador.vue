@@ -1,45 +1,30 @@
 <script>
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+library.add(faTrash);
 export default {
-  data: () => {
-    return {
-      plataforma: null,
-      solicitud: null,
-    };
-  },
   props: {
-    id: Number,
-    nombrePerfil: String,
-    correoPerfil: String,
-    contraseniaPerfil: String,
-    pinPerfil: String,
-    idSolicitud: Number,
+    Perfil: String,
+    Plataforma: String,
+    Correo: String,
+    Contrasenia: String,
+    FechaInicio: String,
+    TiempoDuracion: String,
+    PIN: String,
   },
   methods: {
-    async getSolicitud() {
-      await axios
-        .get("http://localhost:8080/solicitud/user")
-        .then((response) => {
-          this.solicitud = response.data.filter(
-            (solicitud) => (solicitud.id = this.idSolicitud)
-          );
-        });
+    eliminarPerfil() {
+      //función eliminar perfil
     },
-    async getPlataforma() {
-      await axios.get("http://localhost:8080/plataforma").then((response) => {
-        this.plataforma = response.data.filter(
-          (plataforma) => (plataforma.id = this.solicitud.idPlataforma)
-        );
-      });
+    eliminarPerfilButton() {
+      alert("Se ha eliminado el perfil con éxito.");
+      this.eliminarPerfil();
     },
-  },
-  created() {
-    this.getSolicitud();
-    this.getPlataforma();
   },
 };
 </script>
 <template>
-  <div class="bg-dark p-5">
+  <div class="bg-dark p-5 position-relative">
     <div class="row">
       <div
         class="col-12 col-sm-6 col-md-4 d-flex justify-content-center align-items-center"
@@ -50,9 +35,7 @@ export default {
             alt="Foto de perfil"
             class="w-100 pb-2"
           />
-          <p class="text-white fs-5 pt-2 m-0 lh-base">
-            Perfil: {{ nombrePerfil }}
-          </p>
+          <p class="text-white fs-5 pt-2 m-0 lh-base">Perfil: {{ Perfil }}</p>
         </div>
       </div>
       <div class="col-12 col-sm-6 col-md-8 d-flex align-items-center">
@@ -64,7 +47,7 @@ export default {
               Plataforma:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              {{ plataforma }}
+              {{ Plataforma }}
             </div>
           </div>
           <div class="row">
@@ -76,7 +59,7 @@ export default {
             <div
               class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
             >
-              {{ correoPerfil }}
+              {{ Correo }}
             </div>
           </div>
           <div class="row">
@@ -86,7 +69,7 @@ export default {
               Contraseña:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              {{ contraseniaPerfil }}
+              {{ Contrasenia }}
             </div>
           </div>
           <div class="row">
@@ -96,17 +79,17 @@ export default {
               Fecha de inicio:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              {{ solicitud.fechaInicioSolicitud }}
+              {{ FechaInicio }}
             </div>
           </div>
           <div class="row">
             <div
               class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto text-white"
             >
-              Fecha fin:
+              Tiempo de duración (en meses):
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              {{ solicitud.fechaFinSolicitud }}
+              {{ TiempoDuracion }}
             </div>
           </div>
           <div class="row">
@@ -116,16 +99,44 @@ export default {
               PIN:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              {{ pinPerfil }}
+              {{ PIN }}
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="position-absolute end-0 top-0 button__box p-4 d-flex flex-row">
+      <button
+        type="button"
+        class="button button--eliminar ps-2 bg-transparent border-0"
+        v-on:click="eliminarPerfilButton"
+      >
+        <font-awesome-icon icon="fa-solid fa-trash" class="fs-4" />
+      </button>
     </div>
   </div>
 </template>
 <style scoped lang="scss">
 .user-icon-perfil {
   max-width: 15rem;
+}
+.button {
+  color: white;
+  &__box {
+    width: fit-content;
+  }
+  &:hover {
+    transform: scale(1.1);
+  }
+  &--eliminar {
+    &:hover {
+      color: #f84440;
+    }
+  }
+  &--editar {
+    &:hover {
+      color: greenyellow;
+    }
+  }
 }
 </style>

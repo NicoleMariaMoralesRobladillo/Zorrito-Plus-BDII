@@ -6,55 +6,66 @@ export default defineComponent({
   name: "solicitarperfilusuario",
   data: () => {
     return {
-      solicitante: {
-        Plataforma: "Netflix",
-        FechaInicio: "",
-        TiempoDuracion: 1,
-        CapturaPago: "",
+      tiempoDuracion: 0,
+      plataformas: [],
+      solicitud: {
+        idUsuario: null,
+        idPlataforma: null,
+        fechaInicioSolicitud: "",
+        fechaFinSolicitud: "",
+        codigoPago: "",
       },
     };
   },
   methods: {
-    calcularTotalPagar() {
-      let precio = 0;
-      switch (this.$data.solicitante.Plataforma) {
-        case "Netflix":
-          precio = 12 * this.$data.solicitante.TiempoDuracion;
-          break;
-        case "Movistar Play":
-          precio = 5 * this.$data.solicitante.TiempoDuracion;
-          break;
-        case "Disney Plus":
-          precio = 7 * this.$data.solicitante.TiempoDuracion;
-          break;
-        case "Star Plus":
-          precio = 7 * this.$data.solicitante.TiempoDuracion;
-          break;
-        case "HBO Max":
-          precio = 8 * this.$data.solicitante.TiempoDuracion;
-          break;
-        case "Prime Video":
-          precio = 7 * this.$data.solicitante.TiempoDuracion;
-          break;
-        case "Spotify":
-          precio = 7 * this.$data.solicitante.TiempoDuracion;
-          break;
-      }
-      return precio;
+    async getPlataforma() {
+      await axios.get("http://localhost:8080/plataforma").then((response) => {
+        this.plataformas = response.data;
+      });
     },
-    agregarSolicitud() {
-      //función agregar solicitud
-      alert("Se ha enviado la solicitud con éxito.");
-      this.$refs.formularioSolicitud.reset();
-    },
-    format_date(value) {
-      if (value) {
-        return moment(value).format("DD / MM / YYYY");
-      }
-    },
+  },
+  created() {
+    this.getPlataforma();
   },
   components: {
     MetodosDePago,
+  },
+  calcularTotalPagar() {
+    let precio = 0;
+    switch (this.$data.solicitante.Plataforma) {
+      case "Netflix":
+        precio = 12 * this.$data.tiempoDuracion;
+        break;
+      case "Movistar Play":
+        precio = 5 * this.$data.tiempoDuracion;
+        break;
+      case "Disney Plus":
+        precio = 7 * this.$data.tiempoDuracion;
+        break;
+      case "Star Plus":
+        precio = 7 * this.$data.tiempoDuracion;
+        break;
+      case "HBO Max":
+        precio = 8 * this.$data.tiempoDuracion;
+        break;
+      case "Prime Video":
+        precio = 7 * this.$data.tiempoDuracion;
+        break;
+      case "Spotify":
+        precio = 7 * this.$data.tiempoDuracion;
+        break;
+    }
+    return precio;
+  },
+  agregarSolicitud() {
+    //función agregar solicitud
+    alert("Se ha enviado la solicitud con éxito.");
+    this.$refs.formularioSolicitud.reset();
+  },
+  format_date(value) {
+    if (value) {
+      return moment(value).format("DD / MM / YYYY");
+    }
   },
 });
 </script>

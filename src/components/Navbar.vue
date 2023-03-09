@@ -162,7 +162,7 @@ export default defineComponent({
                 <ul class="dropdown-menu dropdown-menu-dark mt-2 border-0">
                   <li>
                     <router-link
-                      to="/misperfilesusuario"
+                      to="/miinformacionusuario"
                       class="dropdown-item fs-5 text-white text-break"
                     >
                       <font-awesome-icon icon="fa-solid fa-user" class="pe-2" />
@@ -185,11 +185,64 @@ export default defineComponent({
               </li>
             </template>
             <template v-if="false">
-              <li class="nav-item pb-2 pt-0 py-lg-0 px-0 pe-lg-4">
+              <li
+                class="nav-item dropdown pb-2 py-lg-0 px-0 pe-lg-4 text-center"
+              >
+                <div
+                  class="nav-link active dropdown-toggle fs-5 p-0 fw-bold text-uppercase readex-pro text-break"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Perfiles
+                </div>
+                <ul class="dropdown-menu dropdown-menu-dark mt-2 border-0">
+                  <li>
+                    <router-link
+                      to="/perfilesadministrador"
+                      class="dropdown-item fs-5 text-white text-break"
+                      ><font-awesome-icon
+                        icon="fa-solid fa-list"
+                        class="pe-2"
+                      />Perfiles</router-link
+                    >
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <router-link
+                      to="/solicitudesadministrador"
+                      class="dropdown-item fs-5 text-white text-break"
+                      ><font-awesome-icon
+                        icon="fa-solid fa-list"
+                        class="pe-2"
+                      />Solicitudes</router-link
+                    >
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <router-link
+                      to="/plataformasadministrador"
+                      class="dropdown-item fs-5 text-white text-break"
+                      ><font-awesome-icon
+                        icon="fa-solid fa-list"
+                        class="pe-2"
+                      />Plataformas</router-link
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item py-2 pt-0 py-lg-0 px-0 px-lg-4">
                 <router-link
-                  to="/solicitudesadministrador"
+                  to="/quejasadministrador"
                   class="nav-link active fs-5 p-0 fw-bold text-uppercase"
-                  >Solicitudes</router-link
+                  >Quejas</router-link
+                >
+              </li>
+              <li class="nav-item py-2 pt-0 py-lg-0 px-0 px-lg-4">
+                <router-link
+                  to="/usuariosadministrador"
+                  class="nav-link active fs-5 p-0 fw-bold text-uppercase"
+                  >Usuarios</router-link
                 >
               </li>
               <li class="nav-item pt-2 pb-0 py-lg-0 px-0 ps-lg-4">

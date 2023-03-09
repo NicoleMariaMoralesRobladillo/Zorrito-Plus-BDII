@@ -5,7 +5,15 @@ export default defineComponent({
   name: "SolicitudesAdministrador",
   data: () => {
     return {
-      solicitudes: [],
+      solicitudes: [
+        {
+          DNI: "a",
+          Plataforma: "a",
+          FechaInicio: "a",
+          TiempoDuracion: "a",
+          CapturaPago: "a",
+        },
+      ],
       plataformaSeleccionada: "Todas",
     };
   },
@@ -100,9 +108,9 @@ export default defineComponent({
           <FilaSolicitud
             v-for="(solicitud, index) in solicitudes"
             :key="index"
-            :Nombres="a"
-            :Apellidos="a"
-            :TelefonoContacto="a"
+            :Nombres="solicitud.DNI"
+            :Apellidos="solicitud.DNI"
+            :TelefonoContacto="solicitud.DNI"
             :DNI="solicitud.DNI"
             :Plataforma="solicitud.Plataforma"
             :FechaInicio="solicitud.FechaInicio"

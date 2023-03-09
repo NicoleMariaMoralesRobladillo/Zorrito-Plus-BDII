@@ -6,22 +6,21 @@ export default defineComponent({
   name: "missolicitudesusuario",
   data: () => {
     return {
-      misSolicitudes: [
-        
-      ],
+      misSolicitudes: [],
     };
   },
   components: {
     SolicitudUsuario,
   },
   methods: {
-    async getPerfiles(){
-       await axios.get('http://localhost:8080/solicitud/user').then(response => {
+    async getPerfiles() {
+      await axios
+        .get("http://localhost:8080/solicitud/user")
+        .then((response) => {
           this.misSolicitudes = response.data;
         });
-
-        
-      },  },
+    },
+  },
   mounted() {
     this.getPerfiles();
   },

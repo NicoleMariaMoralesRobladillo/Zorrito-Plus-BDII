@@ -1,25 +1,59 @@
 <script>
 import { defineComponent } from "vue";
+import axios from "axios";
 export default defineComponent({
   name: "registrate",
   data: () => {
     return {
-      nuevoUsuario: {
-        Nombres: "",
-        Apellidos: "",
-        Correo: "",
-        Contrasenia: "",
-        TelefonoContacto: "",
-        DNI: "",
-        Tipo: "usuario",
+      nuevoCliente: {
+        nombre: "",
+        apellido: "",
+        celular: "",
+        correo: "",
+        dni: "",
+        contrasenia: "",
       },
     };
   },
   methods: {
-    submit() {
-      //función añadir usuario
-      alert("Se ha registrado el usuario con éxito.");
-      this.$router.push("/iniciarsesion");
+    resetearFormularioRegistrate() {
+      let nombreRegistrate = document.getElementById("nombreRegistrate");
+      let apellidoRegistrate = document.getElementById("apellidoRegistrate");
+      let celularRegistrate = document.getElementById("celularRegistrate");
+      let correoRegistrate = document.getElementById("correoRegistrate");
+      let dniRegistrate = document.getElementById("dniRegistrate");
+      let contraseniaRegistrate = document.getElementById(
+        "contraseniaRegistrate"
+      );
+      nombreRegistrate.value = "";
+      apellidoRegistrate.value = "";
+      celularRegistrate.value = "";
+      correoRegistrate.value = "";
+      dniRegistrate.value = "";
+      contraseniaRegistrate.value = "";
+    },
+    async registrarCliente() {
+      let params = {
+        nombre: this.nuevoCliente.nombre,
+        apellido: this.nuevoCliente.apellido,
+        celular: this.nuevoCliente.celular,
+        correo: this.nuevoCliente.correo,
+        dni: this.nuevoCliente.dni,
+        contrasenia: this.nuevoCliente.contrasenia,
+      };
+      await axios.post("http://localhost:8080/usuario/registrar", params).then(
+        (response) => {
+          let verificador = response.data;
+          alert(verificador.mensaje);
+          if (verificador.codigo === "200") {
+            resetearFormularioRegistrate();
+            this.$router.push("/iniciarsesion");
+          }
+        },
+        (error) => {
+          alert(error.mensaje);
+        }
+      );
     },
   },
 });
@@ -42,7 +76,7 @@ export default defineComponent({
             <form
               class="d-flex flex-column"
               method="post"
-              @submit.prevent="submit"
+              @submit.prevent="registrarCliente"
             >
               <h1
                 class="text-white fs-1 text-center lh-base pb-3 m-0 fw-bold text-uppercase"
@@ -50,28 +84,41 @@ export default defineComponent({
                 Regístrate
               </h1>
               <label
-                for="nombresRegistrate"
+                for="nombreRegistrate"
                 class="text-white fs-5 text-start lh-base py-3"
-                >Nombres</label
+                >Nombre</label
               >
               <input
                 type="text"
-                id="nombresRegistrate"
-                name="nombresRegistrate"
-                v-model="nuevoUsuario.Nombres"
+                id="nombreRegistrate"
+                name="nombreRegistrate"
+                v-model="nuevoCliente.nombre"
                 class="formulario__input border-0 rounded-pill py-2 px-3"
                 required
               />
               <label
-                for="apellidosRegistrate"
+                for="apellidoRegistrate"
                 class="text-white fs-5 text-start lh-base py-3"
-                >Apellidos</label
+                >Apellido</label
               >
               <input
                 type="text"
-                id="apellidosRegistrate"
-                name="apellidosRegistrate"
-                v-model="nuevoUsuario.Apellidos"
+                id="apellidoRegistrate"
+                name="apellidoRegistrate"
+                v-model="nuevoCliente.apellido"
+                class="formulario__input border-0 rounded-pill py-2 px-3"
+                required
+              />
+              <label
+                for="celularRegistrate"
+                class="text-white fs-5 text-start lh-base py-3"
+                >Celular</label
+              >
+              <input
+                type="tel"
+                id="celularRegistrate"
+                name="celularRegistrate"
+                v-model="nuevoCliente.celular"
                 class="formulario__input border-0 rounded-pill py-2 px-3"
                 required
               />
@@ -84,33 +131,7 @@ export default defineComponent({
                 type="email"
                 id="correoRegistrate"
                 name="correoRegistrate"
-                v-model="nuevoUsuario.Correo"
-                class="formulario__input border-0 rounded-pill py-2 px-3"
-                required
-              />
-              <label
-                for="contraseniaRegistrate"
-                class="text-white fs-5 text-start lh-base py-3"
-                >Contraseña</label
-              >
-              <input
-                type="password"
-                id="contraseniaRegistrate"
-                name="contraseniaRegistrate"
-                v-model="nuevoUsuario.Contrasenia"
-                class="formulario__input border-0 rounded-pill py-2 px-3"
-                required
-              />
-              <label
-                for="telefonoContactoRegistrate"
-                class="text-white fs-5 text-start lh-base py-3"
-                >Teléfono de contacto</label
-              >
-              <input
-                type="tel"
-                id="telefonoContactoRegistrate"
-                name="telefonoContactoRegistrate"
-                v-model="nuevoUsuario.TelefonoContacto"
+                v-model="nuevoCliente.correo"
                 class="formulario__input border-0 rounded-pill py-2 px-3"
                 required
               />
@@ -123,7 +144,20 @@ export default defineComponent({
                 type="text"
                 id="dniRegistrate"
                 name="dniRegistrate"
-                v-model="nuevoUsuario.DNI"
+                v-model="nuevoCliente.dni"
+                class="formulario__input border-0 rounded-pill py-2 px-3"
+                required
+              />
+              <label
+                for="contraseniaRegistrate"
+                class="text-white fs-5 text-start lh-base py-3"
+                >Contraseña</label
+              >
+              <input
+                type="password"
+                id="contraseniaRegistrate"
+                name="contraseniaRegistrate"
+                v-model="nuevoCliente.contrasenia"
                 class="formulario__input border-0 rounded-pill py-2 px-3"
                 required
               />

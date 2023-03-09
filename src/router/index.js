@@ -161,6 +161,20 @@ const routes = [
     },
   },
   {
+    path: "/miinformacionusuario",
+    name: "miinformacionusuario",
+    // route level code-splitting
+    // this generates a separate chunk (miinformacionusuario.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "miinformacionusuario" */ "../views/MiInformacionUsuario.vue"
+      ),
+    meta: {
+      title: "Mi información | Zorrito +",
+    },
+  },
+  {
     path: "/solicitudesadministrador",
     name: "solicitudesadministrador",
     // route level code-splitting
@@ -186,6 +200,76 @@ const routes = [
       ),
     meta: {
       title: "Ver más de la solicitud | Zorrito +",
+    },
+  },
+  {
+    path: "/quejasadministrador",
+    name: "quejasadministrador",
+    // route level code-splitting
+    // this generates a separate chunk (quejasadministrador.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "quejasadministrador" */ "../views/QuejasAdministrador.vue"
+      ),
+    meta: {
+      title: "Quejas | Zorrito +",
+    },
+  },
+  {
+    path: "/vermasquejasadministrador/:queja",
+    name: "vermasquejasadministrador",
+    // route level code-splitting
+    // this generates a separate chunk (vermasquejasadministrador.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "vermasquejasadministrador" */ "../views/VerMasQuejasAdministrador.vue"
+      ),
+    meta: {
+      title: "Ver más de la queja | Zorrito +",
+    },
+  },
+  {
+    path: "/usuariosadministrador",
+    name: "usuariosadministrador",
+    // route level code-splitting
+    // this generates a separate chunk (usuariosadministrador.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "usuariosadministrador" */ "../views/UsuariosAdministrador.vue"
+      ),
+    meta: {
+      title: "Usuarios | Zorrito +",
+    },
+  },
+  {
+    path: "/perfilesadministrador",
+    name: "perfilesadministrador",
+    // route level code-splitting
+    // this generates a separate chunk (perfilesadministrador.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "perfilesadministrador" */ "../views/PerfilesAdministrador.vue"
+      ),
+    meta: {
+      title: "Perfiles | Zorrito +",
+    },
+  },
+  {
+    path: "/plataformasadministrador",
+    name: "plataformasadministrador",
+    // route level code-splitting
+    // this generates a separate chunk (plataformasadministrador.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "plataformasadministrador" */ "../views/PlataformasAdministrador.vue"
+      ),
+    meta: {
+      title: "Plataformas | Zorrito +",
     },
   },
 ];

@@ -14,42 +14,6 @@ export default defineComponent({
     };
   },
   methods: {
-    perfilCard() {
-      switch (this.solicitud.Plataforma) {
-        case "Netflix":
-          return "perfil-card--f84440";
-        case "Movistar Play":
-          return "perfil-card--009FF7";
-        case "Disney Plus":
-          return "perfil-card--05009D";
-        case "Star Plus":
-          return "perfil-card--FF5400";
-        case "HBO Max":
-          return "perfil-card--9200BB";
-        case "Prime Video":
-          return "perfil-card--D0009C";
-        case "Spotify":
-          return "perfil-card--18D860";
-      }
-    },
-    perfilText() {
-      switch (this.solicitud.Plataforma) {
-        case "Netflix":
-          return "perfil-text--f84440";
-        case "Movistar Play":
-          return "perfil-text--009FF7";
-        case "Disney Plus":
-          return "perfil-text--05009D";
-        case "Star Plus":
-          return "perfil-text--FF5400";
-        case "HBO Max":
-          return "perfil-text--9200BB";
-        case "Prime Video":
-          return "perfil-text--D0009C";
-        case "Spotify":
-          return "perfil-text--18D860";
-      }
-    },
     mostrarModal() {
       this.isModalContainerShow = true;
     },
@@ -82,14 +46,14 @@ export default defineComponent({
       </h1>
     </div>
     <div class="my-5 p-0 mx-md-3 mx-lg-5">
-      <div class="bg-dark p-5" :class="perfilCard()">
+      <div class="bg-dark p-5">
         <div class="row">
           <div
             class="col-12 col-sm-6 col-md-4 d-flex justify-content-center align-items-center"
           >
             <div class="text-center user-icon-perfil">
               <img
-                src="../assets/images/user--black.png"
+                src="../assets/images/user.png"
                 alt="Foto de perfil"
                 class="w-100 pb-2"
               />
@@ -99,8 +63,7 @@ export default defineComponent({
             <div class="w-100">
               <div class="row">
                 <div
-                  class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto"
-                  :class="perfilText()"
+                  class="col-12 col-md-6 text-white fs-5 py-2 fw-semibold lh-base my-auto"
                 >
                   Nombres del solicitante:
                 </div>
@@ -112,8 +75,7 @@ export default defineComponent({
               </div>
               <div class="row">
                 <div
-                  class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto"
-                  :class="perfilText()"
+                  class="col-12 col-md-6 text-white fs-5 py-2 fw-semibold lh-base my-auto"
                 >
                   Apellidos del solicitante:
                 </div>
@@ -125,8 +87,7 @@ export default defineComponent({
               </div>
               <div class="row">
                 <div
-                  class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto"
-                  :class="perfilText()"
+                  class="col-12 col-md-6 text-white fs-5 py-2 fw-semibold lh-base my-auto"
                 >
                   Teléfono de contacto:
                 </div>
@@ -138,8 +99,7 @@ export default defineComponent({
               </div>
               <div class="row">
                 <div
-                  class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto"
-                  :class="perfilText()"
+                  class="col-12 col-md-6 text-white fs-5 py-2 fw-semibold lh-base my-auto"
                 >
                   DNI:
                 </div>
@@ -151,8 +111,7 @@ export default defineComponent({
               </div>
               <div class="row">
                 <div
-                  class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto"
-                  :class="perfilText()"
+                  class="col-12 col-md-6 text-white fs-5 py-2 fw-semibold lh-base my-auto"
                 >
                   Plataforma:
                 </div>
@@ -164,8 +123,7 @@ export default defineComponent({
               </div>
               <div class="row">
                 <div
-                  class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto"
-                  :class="perfilText()"
+                  class="col-12 col-md-6 text-white fs-5 py-2 fw-semibold lh-base my-auto"
                 >
                   Fecha de inicio:
                 </div>
@@ -177,8 +135,7 @@ export default defineComponent({
               </div>
               <div class="row">
                 <div
-                  class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto"
-                  :class="perfilText()"
+                  class="col-12 col-md-6 text-white fs-5 py-2 fw-semibold lh-base my-auto"
                 >
                   Tiempo de duración (en meses):
                 </div>
@@ -190,8 +147,7 @@ export default defineComponent({
               </div>
               <div class="row">
                 <div
-                  class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto"
-                  :class="perfilText()"
+                  class="col-12 col-md-6 text-white fs-5 py-2 fw-semibold lh-base my-auto"
                 >
                   Captura de pago (URL):
                 </div>
@@ -340,7 +296,7 @@ export default defineComponent({
   max-width: 50rem;
 }
 .user-icon-perfil {
-  max-width: 20rem;
+  max-width: 15rem;
 }
 .perfil-card {
   &--f84440 {

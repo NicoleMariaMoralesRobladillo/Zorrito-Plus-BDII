@@ -1,40 +1,13 @@
 <script>
 export default {
-  data: () => {
-    return {
-      plataforma: null,
-      solicitud: null,
-    };
-  },
   props: {
-    id: Number,
-    nombrePerfil: String,
-    correoPerfil: String,
-    contraseniaPerfil: String,
-    pinPerfil: String,
-    idSolicitud: Number,
-  },
-  methods: {
-    async getSolicitud() {
-      await axios
-        .get("http://localhost:8080/solicitud/user")
-        .then((response) => {
-          this.solicitud = response.data.filter(
-            (solicitud) => (solicitud.id = this.idSolicitud)
-          );
-        });
-    },
-    async getPlataforma() {
-      await axios.get("http://localhost:8080/plataforma").then((response) => {
-        this.plataforma = response.data.filter(
-          (plataforma) => (plataforma.id = this.solicitud.idPlataforma)
-        );
-      });
-    },
-  },
-  created() {
-    this.getSolicitud();
-    this.getPlataforma();
+    Nombres: String,
+    Apellidos: String,
+    Correo: String,
+    Contrasenia: String,
+    TelefonoContacto: String,
+    DNI: String,
+    Tipo: String,
   },
 };
 </script>
@@ -50,9 +23,6 @@ export default {
             alt="Foto de perfil"
             class="w-100 pb-2"
           />
-          <p class="text-white fs-5 pt-2 m-0 lh-base">
-            Perfil: {{ nombrePerfil }}
-          </p>
         </div>
       </div>
       <div class="col-12 col-sm-6 col-md-8 d-flex align-items-center">
@@ -61,10 +31,22 @@ export default {
             <div
               class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto text-white"
             >
-              Plataforma:
+              Nombres:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              {{ plataforma }}
+              {{ Nombres }}
+            </div>
+          </div>
+          <div class="row">
+            <div
+              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto text-white"
+            >
+              Apellidos:
+            </div>
+            <div
+              class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
+            >
+              {{ Apellidos }}
             </div>
           </div>
           <div class="row">
@@ -73,10 +55,8 @@ export default {
             >
               Correo:
             </div>
-            <div
-              class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
-            >
-              {{ correoPerfil }}
+            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
+              {{ Correo }}
             </div>
           </div>
           <div class="row">
@@ -86,37 +66,27 @@ export default {
               Contraseña:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              {{ contraseniaPerfil }}
+              {{ Contrasenia }}
             </div>
           </div>
           <div class="row">
             <div
               class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto text-white"
             >
-              Fecha de inicio:
+              Teléfono de contacto:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              {{ solicitud.fechaInicioSolicitud }}
+              {{ TelefonoContacto }}
             </div>
           </div>
           <div class="row">
             <div
               class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto text-white"
             >
-              Fecha fin:
+              DNI:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              {{ solicitud.fechaFinSolicitud }}
-            </div>
-          </div>
-          <div class="row">
-            <div
-              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto text-white"
-            >
-              PIN:
-            </div>
-            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              {{ pinPerfil }}
+              {{ DNI }}
             </div>
           </div>
         </div>
