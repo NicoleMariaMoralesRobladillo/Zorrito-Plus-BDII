@@ -38,7 +38,7 @@ export default defineComponent({
         :id="plataforma.id"
         :nombrePlataforma="plataforma.nombrePlataforma"
         :precioPlataforma="plataforma.precioPlataforma"
-        :estado="plataforma.es"
+        :estado="plataforma.estado"
         class="my-5"
       />
     </div>
