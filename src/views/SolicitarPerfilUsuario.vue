@@ -29,9 +29,12 @@ export default defineComponent({
       });
     },
     async registrarSolicitud() {
-      this.solicitud.fechaFinSolicitud = this.solicitud.fechaInicioSolicitud;
+      let fechaInicioSolicitudDate = Date.parse(
+        this.solicitud.fechaInicioSolicitud
+      );
+      this.solicitud.fechaFinSolicitud = fechaInicioSolicitudDate;
       this.solicitud.fechaFinSolicitud.setMonth(
-        this.solicitud.fechaInicioSolicitud.getMonth() + this.tiempoDuracion
+        fechaInicioSolicitudDate.getMonth() + this.tiempoDuracion
       );
       let params = {
         idPlataforma: this.solicitud.idPlataforma,
