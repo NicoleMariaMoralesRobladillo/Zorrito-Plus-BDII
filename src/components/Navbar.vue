@@ -224,17 +224,6 @@ export default defineComponent({
                   <li><hr class="dropdown-divider" /></li>
                   <li>
                     <router-link
-                      to="/plataformasadministrador"
-                      class="dropdown-item fs-5 text-white text-break"
-                      ><font-awesome-icon
-                        icon="fa-solid fa-list"
-                        class="pe-2"
-                      />Plataformas</router-link
-                    >
-                  </li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li>
-                    <router-link
                       to="/ingresarplataformaadministrador"
                       class="dropdown-item fs-5 text-white text-break"
                       ><font-awesome-icon
