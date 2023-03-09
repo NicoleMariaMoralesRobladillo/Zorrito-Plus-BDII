@@ -6,8 +6,8 @@ export default {
     plataformaPerfil: String,
     correoPerfil: String,
     contraseniaPerfil: String,
-    fechaInicio: Date,
-    fechaFin: Date,
+    fechaInicio: String,
+    fechaFin: String,
     pinPerfil: String,
   },
   methods: {

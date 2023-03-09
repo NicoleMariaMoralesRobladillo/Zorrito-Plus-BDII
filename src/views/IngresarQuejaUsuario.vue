@@ -1,29 +1,53 @@
 <script>
 import { defineComponent } from "vue";
+import axios from "axios";
 export default defineComponent({
   name: "ingresarquejausuario",
   data: () => {
     return {
       queja: {
-        TipoQueja: "Cuenta",
-        ComentarioQueja: "",
+        comentario: "",
+        idTipoQueja: null,
       },
+      tiposQueja: [],
     };
   },
   methods: {
-    agregarQueja() {
-      //función agregar Queja
-      alert("Se ha enviado la queja con éxito.");
-      this.$refs.formularioQueja.reset();
+    async getTiposQueja() {
+      await axios.get("http://localhost:8080/quejas/tipos").then((response) => {
+        this.tiposQueja = response.data;
+      });
     },
+    async emitirQueja() {
+      let params = {
+        comentario: this.queja.comentario,
+        idTipoQueja: this.queja.idTipoQueja,
+      };
+      let formularioQueja = document.getElementById("formularioQueja");
+      await axios.post("http://localhost:8080/quejas/emitirQueja", params).then(
+        (response) => {
+          let verificador = response.data;
+          alert(verificador.mensaje);
+          if (verificador.codigo === "200") {
+            formularioQueja.reset();
+          }
+        },
+        (error) => {
+          alert(error);
+        }
+      );
+    },
+  },
+  created() {
+    this.getTiposQueja();
   },
 });
 </script>
 <template>
   <div class="ingresarquejausuario px-4">
     <div class="my-5 p-0 mx-md-3 mx-lg-5">
-      <div class="bg-dark p-5 panel-queja mx-auto">
-        <form ref="formularioQueja" @submit.prevent="agregarQueja">
+      <div class="bg-dark p-5 panel-solicitar-queja mx-auto">
+        <form id="formularioQueja" @submit.prevent="emitirQueja">
           <h1
             class="text-white fs-1 text-center pb-2 lh-base text-uppercase m-0"
           >
@@ -31,82 +55,44 @@ export default defineComponent({
           </h1>
           <div class="row">
             <div
-              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base panel-queja__text my-auto"
-            >
-              Nombres del cliente:
-            </div>
-            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              a
-            </div>
-          </div>
-          <div class="row">
-            <div
-              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base panel-queja__text my-auto"
-            >
-              Apellidos del cliente:
-            </div>
-            <div
-              class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
-            >
-              a
-            </div>
-          </div>
-          <div class="row">
-            <div
-              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base panel-queja__text my-auto"
-            >
-              Teléfono de contacto:
-            </div>
-            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              a
-            </div>
-          </div>
-          <div class="row">
-            <div
-              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base panel-queja__text my-auto"
-            >
-              DNI:
-            </div>
-            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              a
-            </div>
-          </div>
-          <div class="row">
-            <div
-              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base panel-queja__text my-auto"
+              class="col-12 col-md-4 fs-5 py-2 fw-semibold lh-base panel-solicitar-queja__text my-auto"
             >
               Tipo de queja:
             </div>
             <div
-              class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base text-white my-auto"
+              class="col-12 col-md-8 fs-5 py-2 fw-semibold lh-base text-white my-auto"
             >
               <select
                 class="form-select text-black fs-5 w-100"
                 aria-label="Default select example"
-                v-model="queja.TipoQueja"
+                v-model.number="queja.idTipoQueja"
               >
-                <option selected class="text-black fs-5">Cuenta</option>
-                <option value="Demora" class="text-black fs-5">Demora</option>
-                <option value="Queja" class="text-black fs-5">Externa</option>
+                <option
+                  v-for="tipoQueja in tiposQueja"
+                  :value="tipoQueja.id"
+                  class="text-black fs-5"
+                >
+                  {{ tipoQueja.escalaQueja }}
+                </option>
               </select>
             </div>
           </div>
           <div class="row">
-            <div class="col-12 col-md-6 my-auto">
+            <div class="col-12 col-md-4 my-auto">
               <label
-                for="fechaInicio"
-                class="fs-5 py-2 fw-semibold lh-base panel-queja__text"
+                for="comentario"
+                class="fs-5 py-2 fw-semibold lh-base panel-solicitar-queja__text"
                 >Comentario:</label
               >
             </div>
-            <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
+            <div class="col-12 col-md-8 text-white fs-5 py-2 lh-base my-auto">
               <textarea
-                name="fechaInicio"
-                id="fechaInicio"
+                name="comentario"
+                id="comentario"
                 cols="30"
                 rows="5"
                 class="border-0 rounded-2 py-2 px-3 w-100 text-break"
-                v-model="queja.ComentarioQueja"
+                v-model="queja.comentario"
                 required
               ></textarea>
             </div>
@@ -129,11 +115,11 @@ export default defineComponent({
   </div>
 </template>
 <style scoped lang="scss">
-.panel-queja {
+.panel-solicitar-queja {
   max-width: 55rem;
   box-shadow: -20px 20px 30px #ce47f054;
 }
-.panel-queja__text {
+.panel-solicitar-queja__text {
   color: #ce47f0;
 }
 .formulario__button {

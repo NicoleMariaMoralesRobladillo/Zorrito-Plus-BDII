@@ -13,7 +13,7 @@ export default defineComponent({
     PerfilUsuario,
   },
   methods: {
-    async getPerfiles() {
+    async getMisPerfiles() {
       await axios.get("http://localhost:8080/perfil/user").then((response) => {
         console.log(response);
         this.misPerfiles = response.data;
@@ -21,7 +21,7 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.getPerfiles();
+    this.getMisPerfiles();
   },
 });
 </script>

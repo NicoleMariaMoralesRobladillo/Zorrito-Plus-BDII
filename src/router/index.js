@@ -175,6 +175,20 @@ const routes = [
     },
   },
   {
+    path: "/editarinformacionusuario/:miInformacionUsuario",
+    name: "editarinformacionusuario",
+    // route level code-splitting
+    // this generates a separate chunk (editarinformacionusuario.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "editarinformacionusuario" */ "../views/EditarInformacionUsuario.vue"
+      ),
+    meta: {
+      title: "Editar mi información | Zorrito +",
+    },
+  },
+  {
     path: "/solicitudesadministrador",
     name: "solicitudesadministrador",
     // route level code-splitting

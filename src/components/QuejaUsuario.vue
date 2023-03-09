@@ -2,18 +2,29 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 library.add(faTrash, faPenToSquare);
+import axios from "axios";
 export default {
   props: {
-    TipoQueja: String,
-    ComentarioQueja: String,
+    id: Number,
+    comentario: String,
+    idTipoQueja: Number,
+    nombreTipoQueja: String,
   },
   methods: {
-    eliminarQueja() {
-      //función eliminar queja
-    },
-    eliminarQuejaButton() {
-      alert("Se ha eliminado la queja con éxito.");
-      this.eliminarQueja();
+    async eliminarQueja() {
+      let api = "http://localhost:8080/quejas/eliminarBD" + this.$props.id;
+      await axios.get(api).then(
+        (response) => {
+          let verificador = response.data;
+          alert(verificador.message);
+          if (verificador.estado === "200") {
+            window.location.reload();
+          }
+        },
+        (error) => {
+          alert(error);
+        }
+      );
     },
   },
 };
@@ -41,7 +52,7 @@ export default {
               Tipo de queja:
             </div>
             <div class="col-12 col-md-8 text-white fs-5 py-2 lh-base my-auto">
-              {{ TipoQueja }}
+              {{ nombreTipoQueja }}
             </div>
           </div>
           <div class="row">
@@ -53,7 +64,7 @@ export default {
             <div
               class="col-12 col-md-8 text-white fs-5 py-2 text-break lh-base my-auto"
             >
-              {{ ComentarioQueja }}
+              {{ comentario }}
             </div>
           </div>
         </div>
@@ -81,7 +92,7 @@ export default {
       <button
         type="button"
         class="button button--eliminar ps-2 bg-transparent border-0"
-        v-on:click="eliminarQuejaButton"
+        v-on:click="eliminarQueja"
       >
         <font-awesome-icon icon="fa-solid fa-trash" class="fs-4" />
       </button>

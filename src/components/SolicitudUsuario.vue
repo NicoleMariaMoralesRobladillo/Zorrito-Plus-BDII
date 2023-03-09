@@ -2,24 +2,31 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 library.add(faTrash, faPenToSquare);
+import axios from "axios";
 export default {
   props: {
     id: Number,
-    idPlataforma: Number,
-    idUsuario: Number,
-    fechaInicioSoliciutd: String,
+    plataforma: String,
+    idPlataform: Number,
+    fechaInicioSolicitud: String,
     fechaFinSolicitud: String,
     codigoPago: String,
-    plataforma: String,
-    usuario: String,
   },
   methods: {
-    eliminarSolicitud() {
-      //función eliminar solicitud
-    },
-    eliminarSolicitudButton() {
-      alert("Se ha eliminado la solicitud con éxito.");
-      this.eliminarSolicitud();
+    async eliminarSolicitud() {
+      let api = "http://localhost:8080/solicitud/eliminar/" + this.$props.id;
+      await axios.get(api).then(
+        (response) => {
+          let verificador = response.data;
+          alert(verificador.message);
+          if (verificador.estado === "200") {
+            window.location.reload();
+          }
+        },
+        (error) => {
+          alert(error);
+        }
+      );
     },
   },
 };
@@ -47,7 +54,7 @@ export default {
               Plataforma:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              {{ Plataforma }}
+              {{ plataforma }}
             </div>
           </div>
           <div class="row">
@@ -59,31 +66,31 @@ export default {
             <div
               class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
             >
-              {{ FechaInicio }}
+              {{ fechaInicioSolicitud }}
             </div>
           </div>
           <div class="row">
             <div
               class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto text-white"
             >
-              Tiempo de duración:
+              Fecha fin:
             </div>
             <div
               class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
             >
-              {{ TiempoDuracion }}
+              {{ fechaFinSolicitud }}
             </div>
           </div>
           <div class="row">
             <div
               class="col-12 col-md-6 fs-5 py-2 fw-semibold lh-base my-auto text-white"
             >
-              Captura de pago:
+              Código de pago:
             </div>
             <div
               class="col-12 col-md-6 text-white fs-5 py-2 text-break lh-base my-auto"
             >
-              {{ CapturaPago }}
+              {{ codigoPago }}
             </div>
           </div>
         </div>
@@ -111,7 +118,7 @@ export default {
       <button
         type="button"
         class="button button--eliminar ps-2 bg-transparent border-0"
-        v-on:click="eliminarSolicitudButton"
+        v-on:click="eliminarSolicitud"
       >
         <font-awesome-icon icon="fa-solid fa-trash" class="fs-4" />
       </button>
