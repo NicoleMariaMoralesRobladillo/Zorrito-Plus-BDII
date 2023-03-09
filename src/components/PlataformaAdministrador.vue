@@ -7,7 +7,7 @@ export default {
   props: {
     id: Number,
     nombrePlataforma: String,
-    precioPlataforma: Float64Array,
+    precioPlataforma: Number,
     estado: String,
   },
   methods: {
