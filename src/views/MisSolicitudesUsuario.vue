@@ -13,7 +13,7 @@ export default defineComponent({
     SolicitudUsuario,
   },
   methods: {
-    async getPerfiles() {
+    async getMisSolicitudes() {
       await axios
         .get("http://localhost:8080/solicitud/user")
         .then((response) => {
@@ -22,7 +22,7 @@ export default defineComponent({
     },
   },
   created() {
-    this.getPerfiles();
+    this.getMisSolicitudes();
   },
 });
 </script>
@@ -37,26 +37,14 @@ export default defineComponent({
       <SolicitudUsuario
         v-for="(miSolicitud, index) in misSolicitudes"
         :key="index"
-        :Plataforma="miSolicitud.Plataforma"
-        :FechaInicio="miSolicitud.FechaInicio"
-        :TiempoDuracion="miSolicitud.TiempoDuracion"
-        :CapturaPago="miSolicitud.CapturaPago"
+        :id="miSolicitud.id"
+        :plataforma="miSolicitud.plataforma"
+        :idPlataforma="miSolicitud.idPlataforma"
+        :fechaInicioSolicitud="miSolicitud.fechaInicioSolicitud"
+        :fechaFinSolicitud="miSolicitud.fechaFinSolicitud"
+        :codigoPago="miSolicitud.codigoPago"
         class="my-5"
       />
     </div>
   </div>
 </template>
-<style scoped lang="scss">
-.form-select--width {
-  width: inherit !important;
-}
-.formulario__button {
-  max-width: fit-content;
-  background-color: #182275;
-  white-space: normal;
-  &:hover,
-  &:active {
-    transform: scale(1.1);
-  }
-}
-</style>

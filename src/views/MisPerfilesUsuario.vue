@@ -13,14 +13,14 @@ export default defineComponent({
     PerfilUsuario,
   },
   methods: {
-    async getPerfiles() {
+    async getMisPerfiles() {
       await axios.get("http://localhost:8080/perfil/user").then((response) => {
         this.misPerfiles = response.data;
       });
     },
   },
   created() {
-    this.getPerfiles();
+    this.getMisPerfiles();
   },
 });
 </script>

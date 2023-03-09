@@ -1,25 +1,35 @@
 <script>
 import InformacionUsuario from "@/components/InformacionUsuario.vue";
 import { defineComponent } from "vue";
+import axios from "axios";
 export default defineComponent({
   name: "miinformacionusuario",
   data: () => {
     return {
-      Nombres: "a",
-      Apellidos: "a",
-      Correo: "a",
-      Contrasenia: "a",
-      TelefonoContacto: "a",
-      DNI: "a",
-      Tipo: "a",
+      miInformacion: {
+        id: null,
+        nombre: "",
+        apellido: "",
+        celular: "",
+        correo: "",
+        dni: "",
+        contrasenia: "",
+        rol: "",
+      },
     };
   },
   components: {
     InformacionUsuario,
   },
-  methods: {},
-  mounted() {
-    //informacion del cliente
+  methods: {
+    async getMiInformacion() {
+      await axios.get("http://localhost:8080/usuario/info").then((response) => {
+        this.miInformacion = response.data;
+      });
+    },
+  },
+  created() {
+    this.getMiInformacion();
   },
 });
 </script>
@@ -30,30 +40,16 @@ export default defineComponent({
         Mi información
       </h1>
     </div>
-    <div class="p-0 mx-md-3 mx-lg-5">
+    <div class="p-0 mx-md-3 mx-lg-5" v-if="miInformacion != null">
       <InformacionUsuario
-        :Nombres="Nombres"
-        :Apellidos="Apellidos"
-        :Correo="Correo"
-        :Contrasenia="Contrasenia"
-        :TelefonoContacto="TelefonoContacto"
-        :DNI="DNI"
-        :Tipo="Tipo"
+        :nombre="miInformacion.nombre"
+        :apellido="miInformacion.apellido"
+        :celular="miInformacion.celular"
+        :correo="miInformacion.correo"
+        :dni="miInformacion.dni"
+        :contrasenia="miInformacion.contrasenia"
+        class="my-5"
       />
     </div>
   </div>
 </template>
-<style scoped lang="scss">
-.form-select--width {
-  width: inherit !important;
-}
-.formulario__button {
-  max-width: fit-content;
-  background-color: #182275;
-  white-space: normal;
-  &:hover,
-  &:active {
-    transform: scale(1.1);
-  }
-}
-</style>

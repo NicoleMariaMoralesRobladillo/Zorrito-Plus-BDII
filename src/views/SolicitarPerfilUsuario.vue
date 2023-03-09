@@ -23,7 +23,7 @@ export default defineComponent({
         return moment(fechaTipoDate).format("YYYY-MM-DD");
       }
     },
-    async getPlataforma() {
+    async getPlataformas() {
       await axios.get("http://localhost:8080/plataforma").then((response) => {
         this.plataformas = response.data;
       });
@@ -74,7 +74,7 @@ export default defineComponent({
     },
   },
   created() {
-    this.getPlataforma();
+    this.getPlataformas();
   },
   components: {
     MetodosDePago,
@@ -103,11 +103,11 @@ export default defineComponent({
               <select
                 class="form-select text-black fs-5 w-100"
                 aria-label="Default select example"
-                v-model="solicitud.idPlataforma"
+                v-model.number="solicitud.idPlataforma"
               >
                 <option
                   v-for="plataforma in plataformas"
-                  :value="plataforma.idPlataforma"
+                  :value="plataforma.id"
                   class="text-black fs-5"
                 >
                   {{ plataforma.nombrePlataforma }}
@@ -161,7 +161,7 @@ export default defineComponent({
               Usted debe pagar:
             </div>
             <div class="col-12 col-md-6 text-white fs-5 py-2 lh-base my-auto">
-              S/. {{ calcularTotalPagar() }}
+              S/. {{ calcularTotalPagar }}
             </div>
           </div>
           <div class="row">
