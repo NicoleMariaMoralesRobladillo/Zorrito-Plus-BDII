@@ -70,7 +70,7 @@ export default defineComponent({
                   :value="tipoQueja.id"
                   class="text-black fs-5"
                 >
-                  {{ tipoQueja.escalaQueja }}
+                  {{ tipoQueja.categoriaQueja }}
                 </option>
               </select>
             </div>
