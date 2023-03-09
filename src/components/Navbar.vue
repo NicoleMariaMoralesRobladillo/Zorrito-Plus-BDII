@@ -28,6 +28,7 @@ export default defineComponent({
     cerrarSesion() {
       localStorage.removeItem("token");
       localStorage.removeItem("rol");
+      window.location.reload();
     },
   },
 });

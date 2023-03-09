@@ -30,6 +30,7 @@ export default defineComponent({
             } else if (verificador.usuarioDTO.rol == "ADMINISTRADOR") {
               this.$router.push("/solicitudesadministrador");
             }
+            window.location.reload();
           }
         },
         (error) => {
