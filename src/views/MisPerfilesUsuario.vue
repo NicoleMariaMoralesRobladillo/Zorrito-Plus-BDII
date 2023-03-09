@@ -15,11 +15,12 @@ export default defineComponent({
   methods: {
     async getPerfiles() {
       await axios.get("http://localhost:8080/perfil/user").then((response) => {
+        console.log(response);
         this.misPerfiles = response.data;
       });
     },
   },
-  created() {
+  mounted() {
     this.getPerfiles();
   },
 });
