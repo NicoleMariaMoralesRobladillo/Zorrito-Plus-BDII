@@ -24,7 +24,7 @@ export default defineComponent({
   },
   methods: {
     cerrarSesion() {
-      //Set no-autorizado
+      localStorage.removeItem("token");
     },
   },
 });

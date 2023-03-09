@@ -21,7 +21,6 @@ export default defineComponent({
       await axios.post("http://localhost:8080/login", params).then(
         (response) => {
           let verificador = response.data;
-          alert(verificador.mensaje);
           if (verificador.codigo === "200") {
             localStorage.setItem("token", JSON.stringify(verificador.token));
             setAuthHeader(verificador.token);
