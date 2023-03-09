@@ -49,7 +49,7 @@ export default defineComponent({
           <h1
             class="text-white fs-1 text-center pb-2 lh-base text-uppercase m-0"
           >
-            Editar perfil
+            Editar mi información
           </h1>
           <div class="row">
             <div class="col-12 col-md-6 my-auto">
