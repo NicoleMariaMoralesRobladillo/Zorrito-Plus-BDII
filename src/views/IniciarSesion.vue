@@ -18,7 +18,7 @@ export default defineComponent({
         correo: this.usuarioIniciarSesion.correo,
         contrasenia: this.usuarioIniciarSesion.contrasenia,
       };
-      await axios.post("http://localhost:8080/login", params).then(
+      await axios.post("http://www.grupo4.tech:8080/ZP/login", params).then(
         (response) => {
           let verificador = response.data;
           if (verificador.codigo === "200") {

@@ -24,9 +24,11 @@ export default defineComponent({
       }
     },
     async getPlataformas() {
-      await axios.get("http://localhost:8080/plataforma").then((response) => {
-        this.plataformas = response.data;
-      });
+      await axios
+        .get("http://www.grupo4.tech:8080/ZP/plataforma")
+        .then((response) => {
+          this.plataformas = response.data;
+        });
     },
     async registrarSolicitud() {
       let fechaInicioSolicitudDate = Date.parse(
@@ -48,7 +50,7 @@ export default defineComponent({
       };
       let formularioSolicitud = document.getElementById("formularioSolicitud");
       await axios
-        .post("http://localhost:8080/solicitud/registrar", params)
+        .post("http://www.grupo4.tech:8080/ZP/solicitud/registrar", params)
         .then(
           (response) => {
             let verificador = response.data;

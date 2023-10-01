@@ -14,9 +14,11 @@ export default defineComponent({
   },
   methods: {
     async getTiposQueja() {
-      await axios.get("http://localhost:8080/quejas/tipos").then((response) => {
-        this.tiposQueja = response.data;
-      });
+      await axios
+        .get("http://www.grupo4.tech:8080/ZP/quejas/tipos")
+        .then((response) => {
+          this.tiposQueja = response.data;
+        });
     },
     async emitirQueja() {
       let params = {
@@ -24,18 +26,20 @@ export default defineComponent({
         idTipoQueja: this.queja.idTipoQueja,
       };
       let formularioQueja = document.getElementById("formularioQueja");
-      await axios.post("http://localhost:8080/quejas/emitirQueja", params).then(
-        (response) => {
-          let verificador = response.data;
-          alert(verificador.mensaje);
-          if (verificador.codigo === "200") {
-            formularioQueja.reset();
+      await axios
+        .post("http://www.grupo4.tech:8080/ZP/quejas/emitirQueja", params)
+        .then(
+          (response) => {
+            let verificador = response.data;
+            alert(verificador.mensaje);
+            if (verificador.codigo === "200") {
+              formularioQueja.reset();
+            }
+          },
+          (error) => {
+            alert(error);
           }
-        },
-        (error) => {
-          alert(error);
-        }
-      );
+        );
     },
   },
   created() {

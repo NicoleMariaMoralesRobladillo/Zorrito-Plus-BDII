@@ -12,7 +12,8 @@ export default {
   },
   methods: {
     async eliminarPlataforma() {
-      let api = "http://localhost:8080/plataforma/eliminar/" + this.$props.id;
+      let api =
+        "http://www.grupo4.tech:8080/ZP/plataforma/eliminar/" + this.$props.id;
       await axios.get(api).then(
         (response) => {
           let verificador = response.data;

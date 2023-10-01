@@ -12,7 +12,8 @@ export default {
   },
   methods: {
     async eliminarQueja() {
-      let api = "http://localhost:8080/quejas/eliminarBD/" + this.$props.id;
+      let api =
+        "http://www.grupo4.tech:8080/ZP/quejas/eliminarBD/" + this.$props.id;
       await axios.get(api).then(
         (response) => {
           let verificador = response.data;

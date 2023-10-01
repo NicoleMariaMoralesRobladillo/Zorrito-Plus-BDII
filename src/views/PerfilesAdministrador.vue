@@ -14,9 +14,11 @@ export default defineComponent({
   },
   methods: {
     async getPerfiles() {
-      await axios.get("http://localhost:8080/perfil/admin").then((response) => {
-        this.perfiles = response.data;
-      });
+      await axios
+        .get("http://www.grupo4.tech:8080/ZP/perfil/admin")
+        .then((response) => {
+          this.perfiles = response.data;
+        });
     },
   },
   created() {

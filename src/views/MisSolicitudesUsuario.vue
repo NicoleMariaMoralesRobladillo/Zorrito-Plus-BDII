@@ -15,7 +15,7 @@ export default defineComponent({
   methods: {
     async getMisSolicitudes() {
       await axios
-        .get("http://localhost:8080/solicitud/user")
+        .get("http://www.grupo4.tech:8080/ZP/solicitud/user")
         .then((response) => {
           this.misSolicitudes = response.data;
         });

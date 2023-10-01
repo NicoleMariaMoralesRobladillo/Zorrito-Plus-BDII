@@ -22,18 +22,20 @@ export default defineComponent({
       let formularioInformacionUsuario = document.getElementById(
         "formularioInformacionUsuario"
       );
-      await axios.post("http://localhost:8080/usuario/editar", params).then(
-        (response) => {
-          let verificador = response.data;
-          alert(verificador.mensaje);
-          if (verificador.codigo === "200") {
-            formularioInformacionUsuario.reset();
+      await axios
+        .post("http://www.grupo4.tech:8080/ZP/usuario/editar", params)
+        .then(
+          (response) => {
+            let verificador = response.data;
+            alert(verificador.mensaje);
+            if (verificador.codigo === "200") {
+              formularioInformacionUsuario.reset();
+            }
+          },
+          (error) => {
+            alert(error);
           }
-        },
-        (error) => {
-          alert(error);
-        }
-      );
+        );
     },
   },
 });

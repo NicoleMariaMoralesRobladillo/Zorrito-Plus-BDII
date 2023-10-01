@@ -18,18 +18,20 @@ export default defineComponent({
       let formularioPlataforma = document.getElementById(
         "formularioPlataforma"
       );
-      await axios.post("http://localhost:8080/plataforma/editar", params).then(
-        (response) => {
-          let verificador = response.data;
-          alert(verificador.mensaje);
-          if (verificador.codigo === "200") {
-            formularioPlataforma.reset();
+      await axios
+        .post("http://www.grupo4.tech:8080/ZP/plataforma/editar", params)
+        .then(
+          (response) => {
+            let verificador = response.data;
+            alert(verificador.mensaje);
+            if (verificador.codigo === "200") {
+              formularioPlataforma.reset();
+            }
+          },
+          (error) => {
+            alert(error);
           }
-        },
-        (error) => {
-          alert(error);
-        }
-      );
+        );
     },
   },
 });

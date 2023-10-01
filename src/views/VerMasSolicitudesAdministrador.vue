@@ -20,7 +20,9 @@ export default defineComponent({
       this.isModalContainerShow = false;
     },
     async eliminarSolicitud() {
-      let api = "http://localhost:8080/solicitud/eliminar/" + this.solicitud.id;
+      let api =
+        "http://www.grupo4.tech:8080/ZP/solicitud/eliminar/" +
+        this.solicitud.id;
       await axios.get(api).then(
         (response) => {
           let verificador = response.data;
@@ -42,19 +44,21 @@ export default defineComponent({
         pinPerfil: this.pinPerfil,
         idSolicitud: this.solicitud.id,
       };
-      await axios.post("http://localhost:8080/perfil/aprobar", params).then(
-        (response) => {
-          let verificador = response.data;
-          alert(verificador.mensaje);
-          if (verificador.codigo === "200") {
-            this.cerrarModal();
-            this.$router.push("/solicitudesadministrador");
+      await axios
+        .post("http://www.grupo4.tech:8080/ZP/perfil/aprobar", params)
+        .then(
+          (response) => {
+            let verificador = response.data;
+            alert(verificador.mensaje);
+            if (verificador.codigo === "200") {
+              this.cerrarModal();
+              this.$router.push("/solicitudesadministrador");
+            }
+          },
+          (error) => {
+            alert(error);
           }
-        },
-        (error) => {
-          alert(error);
-        }
-      );
+        );
     },
   },
 });

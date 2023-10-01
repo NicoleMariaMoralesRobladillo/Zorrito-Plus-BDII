@@ -14,9 +14,11 @@ export default defineComponent({
   },
   methods: {
     async getQuejas() {
-      await axios.get("http://localhost:8080/quejas/admin").then((response) => {
-        this.quejas = response.data;
-      });
+      await axios
+        .get("http://www.grupo4.tech:8080/ZP/quejas/admin")
+        .then((response) => {
+          this.quejas = response.data;
+        });
     },
   },
   created() {

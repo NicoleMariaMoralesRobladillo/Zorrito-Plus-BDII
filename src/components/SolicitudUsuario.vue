@@ -14,7 +14,8 @@ export default {
   },
   methods: {
     async eliminarSolicitud() {
-      let api = "http://localhost:8080/solicitud/eliminar/" + this.$props.id;
+      let api =
+        "http://www.grupo4.tech:8080/ZP/solicitud/eliminar/" + this.$props.id;
       await axios.get(api).then(
         (response) => {
           let verificador = response.data;
