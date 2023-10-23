@@ -21,7 +21,7 @@ export default defineComponent({
         "formularioPlataforma"
       );
       await axios
-        .post("http://www.grupo4.tech:8080/ZP/plataforma/registrar", params)
+        .post("http://localhost:8080/plataforma/registrar", params)
         .then(
           (response) => {
             let verificador = response.data;

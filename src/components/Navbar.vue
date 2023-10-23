@@ -74,6 +74,7 @@ export default defineComponent({
                 class="nav-item dropdown pb-2 py-lg-0 px-0 pe-lg-4 text-center"
               >
                 <div
+                  id="perfilesButton"
                   class="nav-link active dropdown-toggle fs-5 p-0 fw-bold text-uppercase readex-pro text-break"
                   role="button"
                   data-bs-toggle="dropdown"
@@ -96,6 +97,7 @@ export default defineComponent({
                   <li>
                     <router-link
                       to="/solicitarperfilusuario"
+                      id="solicitarPerfilButton"
                       class="dropdown-item fs-5 text-white text-break"
                       ><font-awesome-icon
                         icon="fa-solid fa-plus"
@@ -155,6 +157,7 @@ export default defineComponent({
                 class="nav-item dropdown pt-2 py-lg-0 px-0 ps-lg-4 text-center"
               >
                 <div
+                  id="miCuentaButton"
                   class="nav-link active dropdown-toggle fs-5 p-0 fw-bold text-uppercase readex-pro text-break"
                   role="button"
                   data-bs-toggle="dropdown"
@@ -175,6 +178,7 @@ export default defineComponent({
                   <li><hr class="dropdown-divider" /></li>
                   <li>
                     <router-link
+                      id="cerrarSesionButtonCliente"
                       to="/iniciarsesion"
                       class="dropdown-item fs-5 text-white text-break"
                       @click="cerrarSesion"
@@ -250,6 +254,7 @@ export default defineComponent({
               </li>
               <li class="nav-item pt-2 pb-0 py-lg-0 px-0 ps-lg-4">
                 <router-link
+                  id="cerrarSesionButtonAdmin"
                   to="/iniciarsesion"
                   class="nav-link active fs-5 p-0 fw-bold text-uppercase"
                   @click="cerrarSesion"

@@ -10,15 +10,12 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 /* import specific icons */
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
-let token = JSON.parse( localStorage.getItem('token') );
-if( token ){
+let token = JSON.parse(localStorage.getItem("token"));
+if (token) {
   axios.defaults.headers = {
-    Authorization: 'Bearer '+token, 
-    'Content-Type': 'Application/json'
+    Authorization: "Bearer " + token,
+    "Content-Type": "Application/json",
   };
-}
-else{
-  
 }
 /* add icons to the library */
 library.add(faUserSecret);

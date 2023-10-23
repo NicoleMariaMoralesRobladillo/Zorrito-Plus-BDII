@@ -14,11 +14,9 @@ export default defineComponent({
   },
   methods: {
     async getMisPerfiles() {
-      await axios
-        .get("http://www.grupo4.tech:8080/ZP/perfil/user")
-        .then((response) => {
-          this.misPerfiles = response.data;
-        });
+      await axios.get("http://localhost:8080/perfil/user").then((response) => {
+        this.misPerfiles = response.data;
+      });
     },
   },
   mounted() {

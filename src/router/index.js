@@ -4,6 +4,10 @@ import Inicio from "../views/Inicio.vue";
 const routes = [
   {
     path: "/",
+    redirect: { name: "inicio" },
+  },
+  {
+    path: "/inicio",
     name: "inicio",
     component: Inicio,
     meta: {

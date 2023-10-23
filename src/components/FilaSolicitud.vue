@@ -59,7 +59,7 @@ export default {
           class="nav-link active fs-5 p-0 fw-bold text-uppercase"
         >
           <button
-            class="formulario__button text-white fs-5 text-center lh-base border-0 px-4 py-3 rounded-4 text-break w-100"
+            class="verMasButton formulario__button text-white fs-5 text-center lh-base border-0 px-4 py-3 rounded-4 text-break w-100"
           >
             Ver más
           </button></router-link

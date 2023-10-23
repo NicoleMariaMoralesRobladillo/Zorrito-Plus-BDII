@@ -15,7 +15,7 @@ export default defineComponent({
   methods: {
     async getSolicitudes() {
       await axios
-        .get("http://www.grupo4.tech:8080/ZP/solicitud/admin")
+        .get("http://localhost:8080/solicitud/admin")
         .then((response) => {
           this.solicitudes = response.data;
         });

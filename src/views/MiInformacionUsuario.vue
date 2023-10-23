@@ -23,11 +23,9 @@ export default defineComponent({
   },
   methods: {
     async getMiInformacion() {
-      await axios
-        .get("http://www.grupo4.tech:8080/ZP/usuario/info")
-        .then((response) => {
-          this.miInformacion = response.data;
-        });
+      await axios.get("http://localhost:8080/usuario/info").then((response) => {
+        this.miInformacion = response.data;
+      });
     },
   },
   created() {

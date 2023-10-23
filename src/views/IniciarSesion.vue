@@ -18,7 +18,7 @@ export default defineComponent({
         correo: this.usuarioIniciarSesion.correo,
         contrasenia: this.usuarioIniciarSesion.contrasenia,
       };
-      await axios.post("http://www.grupo4.tech:8080/ZP/login", params).then(
+      await axios.post("http://localhost:8080/login", params).then(
         (response) => {
           let verificador = response.data;
           if (verificador.codigo === "200") {
@@ -97,6 +97,7 @@ export default defineComponent({
                 required
               />
               <input
+                id="iniciarSesionButton"
                 type="submit"
                 value="Iniciar sesión"
                 class="mt-4 mb-3 formulario__button mx-auto text-white fs-5 text-center lh-base border-0 px-4 py-3 rounded-4 text-break w-100"

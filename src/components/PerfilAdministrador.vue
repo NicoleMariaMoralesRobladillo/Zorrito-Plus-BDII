@@ -18,8 +18,7 @@ export default {
   },
   methods: {
     async eliminarPerfil() {
-      let api =
-        "http://www.grupo4.tech:8080/ZP/perfil/eliminarBD/" + this.$props.id;
+      let api = "http://localhost:8080/perfil/eliminarBD/" + this.$props.id;
       await axios.delete(api).then(
         (response) => {
           let verificador = response.data;
